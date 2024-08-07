@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "dev": "npx -y kirbyup resources/index.js --watch",
+    "serve": "npx -y kirbyup serve resources/index.js",
+    "build": "npx -y kirbyup resources/index.js"
+  },
+  "devDependencies": {
+    "kirbyup": "^3.1.0",
+    "prettier": "^3.3.0",
+    "vue": "^2.7.0"
+  }
+}

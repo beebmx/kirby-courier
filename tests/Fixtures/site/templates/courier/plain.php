@@ -1,0 +1,1 @@
+Plain courier template

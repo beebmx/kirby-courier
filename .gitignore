@@ -1,0 +1,32 @@
+# system files
+# ------------
+
+/.idea
+/kirby
+/storage/*.key
+.DS_Store
+.php-cs-fixer.cache
+.php_cs.cache
+
+# npm modules
+/node_modules
+package-lock.json
+
+# composer files
+/vendor
+composer.lock
+
+# Testing files
+phpunit.xml
+.phpunit.cache
+.phpunit.result.cache
+
+# Parcel cache folder
+.cache
+
+# kirbyup temp development entry
+/index.dev.mjs
+
+# Fixtures
+/tests/Fixtures/site/plugins
+/tests/Fixtures/site/cache

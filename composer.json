@@ -1,0 +1,59 @@
+{
+    "name": "beebmx/kirby-courier",
+    "description": "Kirby Courier offers a convenient and painless solution for creating emails tailored for your Kirby website.",
+    "license": "MIT",
+    "type": "kirby-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "kirby",
+        "kirby-4",
+        "mail",
+        "email",
+        "courier"
+    ],
+    "authors": [
+        {
+            "name": "Fernando Gutierrez",
+            "homepage": "https://beeb.mx"
+        }
+    ],
+	"require": {
+        "php": "^8.2",
+		"getkirby/composer-installer": "^1.0",
+        "tijsverkoyen/css-to-inline-styles": "^2.0"
+	},
+	"require-dev": {
+		"laravel/pint": "^1.0",
+		"pestphp/pest": "^2.0",
+        "getkirby/cms": "^4.3",
+        "spatie/ray": "^1.40",
+        "getkirby/cli": "^1.5"
+	},
+	"config": {
+		"allow-plugins": {
+			"getkirby/composer-installer": true,
+			"pestphp/pest-plugin": true
+		}
+	},
+    "autoload": {
+        "files": [
+            "helpers.php"
+        ],
+        "psr-4": {
+            "Beebmx\\KirbyCourier\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "kirby-plugin-path": "tests/Fixtures/site/plugins"
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

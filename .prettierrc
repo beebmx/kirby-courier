@@ -1,0 +1,17 @@
+{
+  "endWithNewLine": true,
+  "printWidth": 180,
+  "semi": false,
+  "singleQuote": true,
+  "jsxSingleQuote": false,
+  "tabWidth": 2,
+  "vueIndentScriptAndStyle": true,
+  "overrides": [
+    {
+      "files": ["*.js"],
+      "options": {
+        "singleQuote": true
+      }
+    }
+  ]
+}
