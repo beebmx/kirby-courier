@@ -14,11 +14,11 @@ class MakeThemeMessage
         $fake = $cli->arg('fake') === true;
         $name = $cli->argOrPrompt('theme', 'Enter a courier theme name:');
         $file = $this->path($kirby).'/themes/'.$name.'.css';
-        //
-        //        if (! $fake) {
-        $cli->make($file, __DIR__.'/stubs/theme.stub');
-        //        }
-        //
+
+        if (! $fake) {
+            $cli->make($file, __DIR__.'/stubs/theme.stub');
+        }
+
         $cli->success('Courier theme was created.');
     }
 

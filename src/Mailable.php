@@ -79,12 +79,6 @@ abstract class Mailable implements Sendable
 
     public function __construct()
     {
-        $this->setAddress(
-            App::instance()->option('beebmx.kirby-courier.from.address', 'hello@example.com'),
-            App::instance()->option('beebmx.kirby-courier.from.name', 'Example'),
-            'from'
-        );
-
         $this->subject = App::instance()->option('beebmx.kirby-courier.message.subject', 'Message from courier');
         $this->logo = $this->getLogo();
 
@@ -123,6 +117,14 @@ abstract class Mailable implements Sendable
     public function from(string $address, ?string $name = null): static
     {
         return $this->setAddress($address, $name, 'from');
+    }
+
+    /**
+     * Determine if the given recipient is set on the mailable.
+     */
+    public function hasFrom(array|string $address, ?string $name = null): bool
+    {
+        return $this->hasRecipient($address, $name, 'from');
     }
 
     /**
@@ -419,6 +421,12 @@ abstract class Mailable implements Sendable
             return $this->buildFromPreset(['from', 'fromName']);
         }
 
+        $this->setAddress(
+            App::instance()->option('beebmx.kirby-courier.from.address', 'hello@example.com'),
+            App::instance()->option('beebmx.kirby-courier.from.name', 'Example'),
+            'from'
+        );
+
         return [
             'from' => $this->from[0]['address'],
             'fromName' => $this->from[0]['name'],
@@ -432,7 +440,6 @@ abstract class Mailable implements Sendable
             'cc' => [],
             'bcc' => [],
             'replyTo' => [],
-
         ];
 
         foreach ($recipients as $type => $value) {

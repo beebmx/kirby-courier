@@ -3,7 +3,7 @@
     "description": "Kirby Courier offers a convenient and painless solution for creating emails tailored for your Kirby website.",
     "license": "MIT",
     "type": "kirby-plugin",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "keywords": [
         "kirby",
         "kirby-4",
@@ -52,7 +52,7 @@
         "kirby-plugin-path": "tests/Fixtures/site/plugins"
     },
     "scripts": {
-        "test": "vendor/bin/phpunit"
+        "test": "vendor/bin/pest"
     },
     "minimum-stability": "dev",
     "prefer-stable": true

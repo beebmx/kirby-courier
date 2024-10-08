@@ -17,6 +17,32 @@ describe('basic', function () {
             ->toBeInstanceOf(Email::class);
     });
 
+    it('set a email with default from recipent', function () {
+        $message = (new Message);
+
+        expect($message->send(true))
+            ->from()
+            ->toEqual('hello@example.com');
+    });
+
+    it('can set from recipent', function () {
+        $message = (new Message)
+            ->from('john@doe.co');
+
+        expect($message)
+            ->hasFrom('john@doe.co')
+            ->toBeTrue();
+    });
+
+    it('send a email with from recipent', function () {
+        $message = (new Message)
+            ->from('john@doe.co');
+
+        expect($message->send(true))
+            ->from()
+            ->toEqual('john@doe.co');
+    });
+
     it('can set single recipent', function () {
         $message = (new Message)
             ->to('john@doe.co');

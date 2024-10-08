@@ -9,4 +9,6 @@ phpunit.xml.dist export-ignore
 
 # Others
 .editorconfig export-ignore
+.prettierrc export-ignore
 CHANGELOG-* export-ignore
+CHANGELOG export-ignore
