@@ -251,7 +251,7 @@ abstract class Mailable implements Sendable
         }
 
         if (is_string($file) && file_exists($file)) {
-            $this->attachments[] = $this->toAttachment($file);
+            $this->attachments[] = $file;
         }
 
         return $this;
@@ -270,7 +270,7 @@ abstract class Mailable implements Sendable
         return (new Collection($this->attachments))
             ->filter(
                 fn (File|KirbyFile|string $attachment) => is_string($file)
-                    ? $attachment->filename() === $file
+                    ? str_ends_with($attachment, $file)
                     : $attachment->filename() === $file->filename() && $attachment->sha1() === $file->sha1()
             )->count() >= 1;
     }
@@ -397,11 +397,6 @@ abstract class Mailable implements Sendable
 
             return $current == $expected;
         })->count() === 1;
-    }
-
-    protected function toAttachment(string $file): File
-    {
-        return new File($file);
     }
 
     protected function buildSubject(): array

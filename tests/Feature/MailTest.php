@@ -155,6 +155,12 @@ describe('attachments', function () {
             ->toHaveCount(1);
     });
 
+    it('can send an attachment', function () {
+        $this->message->attach(
+            attachment('empty.txt')
+        )->send(true);
+    })->throwsNoExceptions();
+
     it('can determine if an attachment exists with filename', function () {
         $this->message->attach(
             attachment('empty.txt')
