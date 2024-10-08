@@ -421,11 +421,13 @@ abstract class Mailable implements Sendable
             return $this->buildFromPreset(['from', 'fromName']);
         }
 
-        $this->setAddress(
-            App::instance()->option('beebmx.kirby-courier.from.address', 'hello@example.com'),
-            App::instance()->option('beebmx.kirby-courier.from.name', 'Example'),
-            'from'
-        );
+        if (empty($this->from)) {
+            $this->setAddress(
+                App::instance()->option('beebmx.kirby-courier.from.address', 'hello@example.com'),
+                App::instance()->option('beebmx.kirby-courier.from.name', 'Example'),
+                'from'
+            );
+        }
 
         return [
             'from' => $this->from[0]['address'],
