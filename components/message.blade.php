@@ -1,11 +1,9 @@
+@props(['logo'])
 <x-courier::layout>
 {{-- Header --}}
 <x-slot:header>
 <x-courier::header :url="site()->url()">
-@php($logo = option('beebmx.kirby-courier.logo'))
-@if($logo instanceof \Closure)
-<img src="<?= $logo()->url() ?>" class="logo" alt="<?= site()->title() ?>">
-@elseif(is_string($logo))
+@if(is_string($logo))
 <img src="<?= $logo ?>" class="logo" alt="<?= site()->title() ?>">
 @else
 <?= site()->title()->or('Courier') ?>

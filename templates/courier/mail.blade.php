@@ -1,4 +1,4 @@
-<x-courier::message>
+<x-courier::message :logo="$logo">
 # Hello Courier
 
 The body of your courier message.

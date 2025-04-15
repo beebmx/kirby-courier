@@ -1,5 +1,20 @@
-<?php snippet('courier/message', ['logo' => $logo], slots: true) ?>
-
+<?php
+/**
+ * @var Kirby\Cms\App $kirby
+ * @var array $introLines
+ * @var array $outroLines
+ * @var string $actionText
+ * @var string $actionUrl
+ * @var string $code
+ * @var string $displayableActionUrl
+ * @var string $greeting
+ * @var string $level
+ * @var string $logo
+ * @var string $salutation
+ * @var string $subject
+ */
+?>
+<?php snippet('courier/message', ['logo' => $logo ?? null], slots: true) ?>
 <?php slot('body') ?>
 <?php /*-- Greeting --*/ ?>
 <?php if (! empty($greeting)): ?>
@@ -12,6 +27,13 @@
 
 
 <?php endforeach; ?>
+
+<?php /*-- Code --*/ ?>
+<?php if (! empty($code)): ?>
+<?php snippet('courier/code', slots: true) ?>
+<?= $code ?>
+<?php endsnippet() ?>
+<?php endif ?>
 
 <?php /*-- Action Button --*/ ?>
 <?php if ($actionText): ?>

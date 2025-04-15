@@ -39,6 +39,11 @@ class Message extends Mailable
     public array $introLines = [];
 
     /**
+     * The code of the notification.
+     */
+    public ?string $code = null;
+
+    /**
      * The "outro" lines of the notification.
      */
     public array $outroLines = [];
@@ -106,6 +111,16 @@ class Message extends Mailable
     public function line(mixed $line): static
     {
         return $this->with($line);
+    }
+
+    /**
+     * Add a code of text to the notification.
+     */
+    public function code(mixed $code): static
+    {
+        $this->code = $code;
+
+        return $this;
     }
 
     /**
@@ -185,6 +200,7 @@ class Message extends Mailable
         return array_merge(parent::toArray(), [
             'actionText' => $this->action?->text,
             'actionUrl' => $this->action?->url,
+            'code' => $this->code,
             'displayableActionUrl' => str_replace(['mailto:', 'tel:'], '', $this->action?->url ?? ''),
             'greeting' => $this->greeting,
             'introLines' => $this->introLines,

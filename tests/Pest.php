@@ -11,11 +11,11 @@ use Kirby\Filesystem\F;
 |
 | The closure you provide to your test functions is always bound to a specific PHPUnit test
 | case class. By default, that class is "PHPUnit\Framework\TestCase". Of course, you may
-| need to change it using the "uses()" function to bind a different classes or traits.
+| need to change it using the "pest()" function to bind a different classes or traits.
 |
 */
 
-uses(Tests\TestCase::class)->in('Feature', 'Unit');
+pest()->uses(Tests\TestCase::class)->in('Feature', 'Unit');
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +28,7 @@ uses(Tests\TestCase::class)->in('Feature', 'Unit');
 |
 */
 
-//expect()->extend('toBeOne', fn() => $this->toBe(1));
+// expect()->extend('toBeOne', fn() => $this->toBe(1));
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +43,8 @@ uses(Tests\TestCase::class)->in('Feature', 'Unit');
 
 function App(array $roots = [], array $options = []): Kirby
 {
+    Kirby::$enableWhoops = false;
+
     return new Kirby([
         'roots' => array_merge([
             'index' => '/dev/null',
@@ -60,14 +62,6 @@ function App(array $roots = [], array $options = []): Kirby
         'snippets' => require dirname(__DIR__).'/extensions/snippets.php',
         'templates' => require dirname(__DIR__).'/extensions/templates.php',
     ]);
-}
-
-function render(array $roots = []): Kirby
-{
-    $kirby = App($roots);
-    echo $kirby->render();
-
-    return $kirby;
 }
 
 function fixtures(string $path): string

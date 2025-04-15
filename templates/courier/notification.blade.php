@@ -1,4 +1,4 @@
-<x-courier::message>
+<x-courier::message :logo="$logo">
 {{-- Greeting --}}
 @if (! empty($greeting))
 # {{ $greeting }}
@@ -10,7 +10,15 @@
 
 @endforeach
 
-{{-- Action Button --}}
+{{-- Code --}}
+@if (! empty($code))
+<x-courier::code>
+{{ $code }}
+</x-courier::code>
+@endif
+
+
+        {{-- Action Button --}}
 @isset($actionText)
 @php
 $color = match ($level) {

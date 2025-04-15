@@ -441,6 +441,14 @@ describe('notification', function () {
         expect($this->message->render()->toHtml())
             ->toContain('button-primary');
     });
+
+    it('can add a code block', function () {
+        $this->message
+            ->code('000001');
+
+        expect($this->message->render()->toHtml())
+            ->toContain('000001');
+    });
 });
 
 describe('advance', function () {

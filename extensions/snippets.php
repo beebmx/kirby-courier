@@ -2,6 +2,7 @@
 
 return [
     'courier/button' => dirname(__DIR__).'/snippets/button.php',
+    'courier/code' => dirname(__DIR__).'/snippets/code.php',
     'courier/footer' => dirname(__DIR__).'/snippets/footer.php',
     'courier/header' => dirname(__DIR__).'/snippets/header.php',
     'courier/layout' => dirname(__DIR__).'/snippets/layout.php',

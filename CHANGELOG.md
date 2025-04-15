@@ -2,6 +2,12 @@
 
 All notable changes to `Kirby Courier` will be documented in this file.
 
+## 1.0.4 - 2025-04-14
+
+- Added new code block template
+- Added support for Kirby@5.x
+- Upgrade testing to pest@3.x
+
 ## 1.0.3 - 2024-10-08
 
 - Fixed an error when setting an attachment with strings

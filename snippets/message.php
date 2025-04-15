@@ -1,12 +1,14 @@
+<?php
+/**
+ * @var string $logo
+ */
+?>
 <?php snippet('courier/layout', slots: true) ?>
 
 <?php /*-- Header --*/ ?>
 <?php slot('header') ?>
 <?php snippet('courier/header', ['url' => site()->url()], slots: true) ?>
-<?php $logo = option('beebmx.kirby-courier.logo') ?>
-<?php if($logo instanceof \Closure): ?>
-<img src="<?= $logo()->url() ?>" class="logo" alt="<?= site()->title() ?>">
-<?php elseif(is_string($logo)): ?>
+<?php if(is_string($logo ?? null)): ?>
 <img src="<?= $logo ?>" class="logo" alt="<?= site()->title() ?>">
 <?php else: ?>
 <?= site()->title() ?>

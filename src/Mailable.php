@@ -3,6 +3,7 @@
 namespace Beebmx\KirbyCourier;
 
 use Beebmx\KirbyCourier\Contracts\Sendable;
+use Closure;
 use Kirby\Cms\App;
 use Kirby\Cms\File as KirbyFile;
 use Kirby\Email\Email;
@@ -70,7 +71,7 @@ abstract class Mailable implements Sendable
     /**
      * The callbacks for the message.
      */
-    public Asset|string|null $logo = null;
+    public ?string $logo = null;
 
     /**
      * The callbacks for the message.
@@ -505,12 +506,14 @@ abstract class Mailable implements Sendable
         return (object) [];
     }
 
-    protected function getLogo(): Asset|string|null
+    protected function getLogo(): ?string
     {
         $logo = App::instance()->option('beebmx.kirby-courier.logo');
 
         return match (true) {
-            $logo instanceof Asset => $logo,
+            $logo instanceof Closure => (string) $logo()?->url(),
+            $logo instanceof Asset => (string) $logo?->url(),
+            is_string($logo) => $logo,
             default => null,
         };
     }
