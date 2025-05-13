@@ -12,3 +12,4 @@ phpunit.xml.dist export-ignore
 .prettierrc export-ignore
 CHANGELOG-* export-ignore
 CHANGELOG export-ignore
+CHANGELOG.md export-ignore

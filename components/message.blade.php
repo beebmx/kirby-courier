@@ -1,4 +1,4 @@
-@props(['logo'])
+@props(['logo' => null])
 <x-courier::layout>
 {{-- Header --}}
 <x-slot:header>

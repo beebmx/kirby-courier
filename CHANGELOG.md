@@ -2,6 +2,11 @@
 
 All notable changes to `Kirby Courier` will be documented in this file.
 
+## 1.0.5 - 2025-05-13
+
+- Fixed an issue with empty logo on the message template
+- Fixed an issue with the logo in stubs
+
 ## 1.0.4 - 2025-04-14
 
 - Added new code block template

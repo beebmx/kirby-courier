@@ -1,4 +1,4 @@
-<?php snippet('courier/message', slots: true) ?>
+<?php snippet('courier/message', ['logo' => $logo ?? null], slots: true) ?>
 <?php slot('body') ?>
 # Hello Courier
 
