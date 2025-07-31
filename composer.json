@@ -3,7 +3,7 @@
     "description": "Kirby Courier offers a convenient and painless solution for creating emails tailored for your Kirby website.",
     "license": "MIT",
     "type": "kirby-plugin",
-    "version": "1.0.6",
+    "version": "1.1.0",
     "keywords": [
         "mail",
         "email",
@@ -29,7 +29,7 @@
 		"laravel/pint": "^1.0",
 		"pestphp/pest": "^3.0",
         "getkirby/cli": "^1.6",
-        "getkirby/cms": "^4.5|^5.0",
+        "getkirby/cms": "^5.0",
         "spatie/ray": "^1.40"
 	},
 	"config": {
@@ -52,8 +52,8 @@
         }
     },
     "extra": {
-        "kirby-plugin-path": "tests/Fixtures/site/plugins",
-        "kirby-cms-path": false
+        "kirby-cms-path": false,
+        "kirby-plugin-path": "tests/Fixtures/site/plugins"
     },
     "scripts": {
         "test": "vendor/bin/pest"

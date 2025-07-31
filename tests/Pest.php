@@ -28,7 +28,7 @@ pest()->extend(Tests\TestCase::class)->in('Feature', 'Unit');
 |
 */
 
-function App(array $roots = [], array $options = []): Kirby
+function App(array $roots = [], array $options = [], string $domain = 'example.com', array $users = []): Kirby
 {
     Kirby::$enableWhoops = false;
 
@@ -38,16 +38,23 @@ function App(array $roots = [], array $options = []): Kirby
             'base' => $base = dirname(__DIR__),
             'tests' => $tests = $base.'/tests',
             'fixtures' => $fixtures = $tests.'/Fixtures',
+            'media' => $fixtures.'/media',
             'site' => $site = $fixtures.'/site',
             'content' => $site.'/content',
             'storage' => $fixtures.'/storage',
         ], $roots),
+        'server' => [
+            'SERVER_NAME' => $domain,
+        ],
         'options' => array_merge([
             'beebmx.kirby-courier' => require dirname(__DIR__).'/extensions/options.php',
         ], $options),
+        'users' => [$users],
+        'authChallenges' => require dirname(__DIR__).'/extensions/authChallenges.php',
         'commands' => require dirname(__DIR__).'/extensions/commands.php',
         'snippets' => require dirname(__DIR__).'/extensions/snippets.php',
         'templates' => require dirname(__DIR__).'/extensions/templates.php',
+        'translations' => require dirname(__DIR__).'/extensions/translations.php',
     ]);
 }
 

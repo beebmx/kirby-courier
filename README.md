@@ -21,9 +21,10 @@ With `Kirby Courier`, you can streamline the process of email design and impleme
 - [3. Snippets](#snippets)
 - [4. Console](#console)
 - [5. Helper](#helper)
-- [6. Options](#options)
-- [7. License](#license)
-- [8. Credits](#credits)
+- [6. Challenge](#challenge)
+- [7. Options](#options)
+- [8. License](#license)
+- [9. Credits](#credits)
 
 ## Installation
 
@@ -270,20 +271,49 @@ And of course, you can use it in a `template` to render it:
         ->toHtml() ?>
 ```
 
+## Challenge
+
+`Kirby Courier` also provides a `challenge` message type to help you with your login and password reset flows.
+First, you need to set the `challenge` in your `config.php` file:
+
+```php
+'auth' => [
+    'challenges' => ['courier', 'email'],
+],
+```
+
+Then, you can specify the `methods` you want to use in your `config.php` file:
+
+```php
+'auth' => [
+    'challenges' => ['courier', 'email'],
+    'methods'   => ['password', 'code'],
+],
+```
+
+> [!WARNING]
+> Right now only `code` and `password-reset` are supported for the `courier` challenge.
+
 ## Options
 
-| Option                                  |       Default        |           Type            | Description                                                |
-|:----------------------------------------|:--------------------:|:-------------------------:|:-----------------------------------------------------------|
-| beebmx.kirby-courier.logo               |         null         | `Closure`,`string`,`null` | Set your own logo in every message.                        |
-| beebmx.kirby-courier.path               |       courier        |         `string`          | Set a path where the `templates` and `themes` are located. |
-| beebmx.kirby-courier.from.address       |          4           |           `int`           | Set the default `form.address` for every message.          |
-| beebmx.kirby-courier.from.name          |          2           |           `int`           | Set the default `form.name` for every message.             |
-| beebmx.kirby-courier.message.greeting   |        Hello!        |         `string`          | Set the default `message.greeting` for every message.      |
-| beebmx.kirby-courier.message.rights     | All rights reserved. |         `string`          | Set the default `message.rights` for every message.        |
-| beebmx.kirby-courier.message.salutation |       Regards        |         `string`          | Set the default `message.salutation` for every message.    |
-| beebmx.kirby-courier.message.subject    | Message from courier |         `string`          | Set the default `message.subject` for every message.       |
-| beebmx.kirby-courier.message.notify     |                      |         `string`          | Set the default `message.notify` for every message.        |
-| beebmx.kirby-courier.message.brand_name |         null         |         `?string`         | Set the default `message.brand_name` for every message.    |
+| Option                                                     |       Default        |           Type            | Description                                                |
+|:-----------------------------------------------------------|:--------------------:|:-------------------------:|:-----------------------------------------------------------|
+| beebmx.kirby-courier.logo                                  |         null         | `Closure`,`string`,`null` | Set your own logo in every message.                        |
+| beebmx.kirby-courier.path                                  |       courier        |         `string`          | Set a path where the `templates` and `themes` are located. |
+| beebmx.kirby-courier.from.address                          |          4           |           `int`           | Set the default `form.address` for every message.          |
+| beebmx.kirby-courier.from.name                             |          2           |           `int`           | Set the default `form.name` for every message.             |
+| beebmx.kirby-courier.message.greeting                      |        Hello!        |         `string`          | Set the default `message.greeting` for every message.      |
+| beebmx.kirby-courier.message.rights                        | All rights reserved. |         `string`          | Set the default `message.rights` for every message.        |
+| beebmx.kirby-courier.message.salutation                    |       Regards        |         `string`          | Set the default `message.salutation` for every message.    |
+| beebmx.kirby-courier.message.subject                       | Message from courier |         `string`          | Set the default `message.subject` for every message.       |
+| beebmx.kirby-courier.message.notify                        |                      |         `string`          | Set the default `message.notify` for every message.        |
+| beebmx.kirby-courier.message.brand_name                    |         null         |         `?string`         | Set the default `message.brand_name` for every message.    |
+| beebmx.kirby-courier.challenge.theme                       |       default        |         `?string`         | Set the default `theme` for your challenge message.        |
+| beebmx.kirby-courier.challenge.greeting                    |         null         |         `?string`         | Set the `greeting` message for your challenge.             |
+| beebmx.kirby-courier.challenge.email.login.before          |         null         |         `?string`         | Set the text before `code` for login message.              |
+| beebmx.kirby-courier.challenge.email.login.after           |         null         |         `?string`         | Set the text after `code` for login message.               |
+| beebmx.kirby-courier.challenge.email.password-reset.before |         null         |         `?string`         | Set the text before `code` for password-reset message.     |
+| beebmx.kirby-courier.challenge.email.password-reset.after  |         null         |         `?string`         | Set the text after `code` for password-reset message.      |
 
 Here's an example of a full use of the options from the `config.php` file:
 
@@ -304,6 +334,20 @@ Here's an example of a full use of the options from the `config.php` file:
         'subject' => 'Message from courier',
         'notify' => 'Si tienes problemas para hacer clic en el botón, copia y pega la URL de abajo en tu navegador web.',
         'brand_name' => null,
+    ],
+    'challenge' => [
+        'theme' => 'your-own-theme',
+        'greeting' => 'Hello friend!',
+        'email' => [
+            'login' => [
+                'before' => 'Recently, a login attempt was made on your account. You have X minutes to complete the login.',
+                'after' => 'DO NOT share this code with anyone. If you did not request this login, you can ignore this email.',
+            ],
+            'password-reset' => [
+                'before' => 'Recently, a login attempt was made on your account. You have X minutes to complete the login.',
+                'after' => 'DO NOT share this code with anyone. If you did not request this password reset, you can ignore this email.',
+            ],
+        ],
     ],
 ],
 ```

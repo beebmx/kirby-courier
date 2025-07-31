@@ -18,7 +18,7 @@
 @endif
 
 
-        {{-- Action Button --}}
+{{-- Action Button --}}
 @isset($actionText)
 @php
 $color = match ($level) {

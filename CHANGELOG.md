@@ -2,6 +2,12 @@
 
 All notable changes to `Kirby Courier` will be documented in this file.
 
+## 1.1.0 - 2025-07-30
+
+- Added new challenge `courier`
+- Added challenge `courier` support for `login`
+- Added challenge `courier` support for `password-reset`
+
 ## 1.0.5 - 2025-05-13
 
 - Fixed an issue with empty logo on the message template

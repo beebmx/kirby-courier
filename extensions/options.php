@@ -15,4 +15,18 @@ return [
         'notify' => 'If you\'re having trouble clicking the button, copy and paste the URL below into your web browser',
         'brand_name' => null,
     ],
+    'challenge' => [
+        'theme' => 'default',
+        'greeting' => null,
+        'email' => [
+            'login' => [
+                'before' => null,
+                'after' => null,
+            ],
+            'password-reset' => [
+                'before' => null,
+                'after' => null,
+            ],
+        ],
+    ],
 ];

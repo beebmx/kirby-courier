@@ -128,7 +128,7 @@ class Message extends Mailable
      */
     public function with(mixed $line): static
     {
-        if ($this->action === null) {
+        if ($this->action === null && $this->code === null) {
             $this->introLines[] = $this->formatLine($line);
         } else {
             $this->outroLines[] = $this->formatLine($line);
