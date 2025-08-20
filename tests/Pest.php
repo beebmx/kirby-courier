@@ -47,7 +47,7 @@ function App(array $roots = [], array $options = [], string $domain = 'example.c
             'SERVER_NAME' => $domain,
         ],
         'options' => array_merge([
-            'beebmx.kirby-courier' => require dirname(__DIR__).'/extensions/options.php',
+            'beebmx.courier' => require dirname(__DIR__).'/extensions/options.php',
         ], $options),
         'users' => [$users],
         'authChallenges' => require dirname(__DIR__).'/extensions/authChallenges.php',

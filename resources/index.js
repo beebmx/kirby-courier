@@ -1,3 +1,3 @@
-window.panel.plugin("beebmx/kirby-courier", {
+window.panel.plugin("beebmx/courier", {
 	//
 });

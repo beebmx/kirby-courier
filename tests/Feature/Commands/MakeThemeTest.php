@@ -4,7 +4,7 @@ use Kirby\CLI\CLI;
 
 beforeEach(function () {
     App(options: [
-        'beebmx.kirby-courier.path' => 'stubs',
+        'beebmx.courier.path' => 'stubs',
     ]);
     $this->cli = new CLI;
 });

@@ -58,15 +58,15 @@
 <?php if (! empty($salutation)): ?>
 <?= $salutation ?>
 <?php else: ?>
-<?= option('beebmx.kirby-courier.message.salutation', 'Regards') ?>,
-<?= option('beebmx.kirby-courier.message.brand_name', site()->title()->or('Courier')) ?>
+<?= option('beebmx.courier.message.salutation', 'Regards') ?>,
+<?= option('beebmx.courier.message.brand_name', site()->title()->or('Courier')) ?>
 <?php endif ?>
 <?php endslot() ?>
 
 <?php /*-- Subcopy --*/ ?>
 <?php if ($actionText): ?>
 <?php slot('subcopy') ?>
-<?= option('beebmx.kirby-courier.message.notify', 'If you\'re having trouble clicking the button, copy and paste the URL below into your web browser') ?>
+<?= option('beebmx.courier.message.notify', 'If you\'re having trouble clicking the button, copy and paste the URL below into your web browser') ?>
 
 <span class="break-all">[<?= $displayableActionUrl ?>](<?= $actionUrl ?>)</span>
 <?php endslot() ?>

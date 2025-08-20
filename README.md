@@ -7,10 +7,10 @@
 <a href="https://packagist.org/packages/beebmx/kirby-courier"><img src="https://img.shields.io/packagist/l/beebmx/kirby-courier" alt="License"></a>
 </p>
 
-# Kirby Courier
+# Courier for Kirby
 
-`Kirby Courier` offers a convenient and painless solution for creating emails tailored for your `Kirby` website.
-With `Kirby Courier`, you can streamline the process of email design and implementation for your site.
+`Courier` offers a convenient and painless solution for creating emails tailored for your `Kirby` website.
+With `Courier`, you can streamline the process of email design and implementation for your site.
 
 ****
 
@@ -40,7 +40,7 @@ composer require beebmx/kirby-courier
 
 ## Usage
 
-`Kirby Courier` comes with two email `message` types, and you can customize them for your convenience.
+`Courier` comes with two email `message` types, and you can customize them for your convenience.
 
 ![Kirby Courier example](https://raw.githubusercontent.com/beebmx/kirby-courier/main/assets/example.png)
 
@@ -106,7 +106,7 @@ use Beebmx\KirbyCourier\Mail\Message;
 
 #### Formating mail messages
 
-To create your own `template` for your `mail` messages, you need to create a file in the default location for `Kirby Courier`.
+To create your own `template` for your `mail` messages, you need to create a file in the default location for `Courier`.
 Here's an example for a marketing message:
 
 ```php
@@ -176,7 +176,7 @@ If you want to previsualize your email, you can do it in any template. Here's an
 
 ## Snippets
 
-For your convenience, `Kirby Courier` has some `snippets` to speed up your email building flow.
+For your convenience, `Courier` has some `snippets` to speed up your email building flow.
 You can add them in your `courier template`.
 
 > [!NOTE]
@@ -220,8 +220,8 @@ This is a subcopy
 
 ## Console
 
-If you are a [Kirby CLI](https://github.com/getkirby/cli) user, `Kirby Courier` also has you covered.
-The `Kirby Courier` commands can help you create `Mail` messages faster or even create your own `Courier Theme`.
+If you are a [Kirby CLI](https://github.com/getkirby/cli) user, `Courier` also has you covered.
+The `Courier` commands can help you create `Mail` messages faster or even create your own `Courier Theme`.
 
 You can create your `Mail` template with:
 
@@ -273,7 +273,7 @@ And of course, you can use it in a `template` to render it:
 
 ## Challenge
 
-`Kirby Courier` also provides a `challenge` message type to help you with your login and password reset flows.
+`Courier` also provides a `challenge` message type to help you with your login and password reset flows.
 First, you need to set the `challenge` in your `config.php` file:
 
 ```php
@@ -296,29 +296,29 @@ Then, you can specify the `methods` you want to use in your `config.php` file:
 
 ## Options
 
-| Option                                                     |       Default        |           Type            | Description                                                |
-|:-----------------------------------------------------------|:--------------------:|:-------------------------:|:-----------------------------------------------------------|
-| beebmx.kirby-courier.logo                                  |         null         | `Closure`,`string`,`null` | Set your own logo in every message.                        |
-| beebmx.kirby-courier.path                                  |       courier        |         `string`          | Set a path where the `templates` and `themes` are located. |
-| beebmx.kirby-courier.from.address                          |          4           |           `int`           | Set the default `form.address` for every message.          |
-| beebmx.kirby-courier.from.name                             |          2           |           `int`           | Set the default `form.name` for every message.             |
-| beebmx.kirby-courier.message.greeting                      |        Hello!        |         `string`          | Set the default `message.greeting` for every message.      |
-| beebmx.kirby-courier.message.rights                        | All rights reserved. |         `string`          | Set the default `message.rights` for every message.        |
-| beebmx.kirby-courier.message.salutation                    |       Regards        |         `string`          | Set the default `message.salutation` for every message.    |
-| beebmx.kirby-courier.message.subject                       | Message from courier |         `string`          | Set the default `message.subject` for every message.       |
-| beebmx.kirby-courier.message.notify                        |                      |         `string`          | Set the default `message.notify` for every message.        |
-| beebmx.kirby-courier.message.brand_name                    |         null         |         `?string`         | Set the default `message.brand_name` for every message.    |
-| beebmx.kirby-courier.challenge.theme                       |       default        |         `?string`         | Set the default `theme` for your challenge message.        |
-| beebmx.kirby-courier.challenge.greeting                    |         null         |         `?string`         | Set the `greeting` message for your challenge.             |
-| beebmx.kirby-courier.challenge.email.login.before          |         null         |         `?string`         | Set the text before `code` for login message.              |
-| beebmx.kirby-courier.challenge.email.login.after           |         null         |         `?string`         | Set the text after `code` for login message.               |
-| beebmx.kirby-courier.challenge.email.password-reset.before |         null         |         `?string`         | Set the text before `code` for password-reset message.     |
-| beebmx.kirby-courier.challenge.email.password-reset.after  |         null         |         `?string`         | Set the text after `code` for password-reset message.      |
+| Option                                               |       Default        |           Type            | Description                                                |
+|:-----------------------------------------------------|:--------------------:|:-------------------------:|:-----------------------------------------------------------|
+| beebmx.courier.logo                                  |         null         | `Closure`,`string`,`null` | Set your own logo in every message.                        |
+| beebmx.courier.path                                  |       courier        |         `string`          | Set a path where the `templates` and `themes` are located. |
+| beebmx.courier.from.address                          |          4           |           `int`           | Set the default `form.address` for every message.          |
+| beebmx.courier.from.name                             |          2           |           `int`           | Set the default `form.name` for every message.             |
+| beebmx.courier.message.greeting                      |        Hello!        |         `string`          | Set the default `message.greeting` for every message.      |
+| beebmx.courier.message.rights                        | All rights reserved. |         `string`          | Set the default `message.rights` for every message.        |
+| beebmx.courier.message.salutation                    |       Regards        |         `string`          | Set the default `message.salutation` for every message.    |
+| beebmx.courier.message.subject                       | Message from courier |         `string`          | Set the default `message.subject` for every message.       |
+| beebmx.courier.message.notify                        |                      |         `string`          | Set the default `message.notify` for every message.        |
+| beebmx.courier.message.brand_name                    |         null         |         `?string`         | Set the default `message.brand_name` for every message.    |
+| beebmx.courier.challenge.theme                       |       default        |         `?string`         | Set the default `theme` for your challenge message.        |
+| beebmx.courier.challenge.greeting                    |         null         |         `?string`         | Set the `greeting` message for your challenge.             |
+| beebmx.courier.challenge.email.login.before          |         null         |         `?string`         | Set the text before `code` for login message.              |
+| beebmx.courier.challenge.email.login.after           |         null         |         `?string`         | Set the text after `code` for login message.               |
+| beebmx.courier.challenge.email.password-reset.before |         null         |         `?string`         | Set the text before `code` for password-reset message.     |
+| beebmx.courier.challenge.email.password-reset.after  |         null         |         `?string`         | Set the text after `code` for password-reset message.      |
 
 Here's an example of a full use of the options from the `config.php` file:
 
 ```php
-'beebmx.kirby-courier' => [
+'beebmx.courier' => [
     'logo' => function() {
         return site()->file('logo.png');
     },
@@ -352,13 +352,16 @@ Here's an example of a full use of the options from the `config.php` file:
 ],
 ```
 
+> [!WARNING]
+> Since version `1.2.0`, `Courier` changes the plugin prefix from `beebmx.kirby-courier` to `beebmx.courier`.
+
 ## License
 
 Licensed under the [MIT](LICENSE.md).
 
 ## Credits
 
-`Kirby Courier` is inspired by the [Laravel Notifications](https://laravel.com/docs/master/notifications) and [Laravel Mail](https://laravel.com/docs/master/mail).
+`Courier` is inspired by the [Laravel Notifications](https://laravel.com/docs/master/notifications) and [Laravel Mail](https://laravel.com/docs/master/mail).
 
 - Fernando Gutierrez [@beebmx](https://github.com/beebmx)
 - Jonas Ceja [@jonatanjonas](https://github.com/jonatanjonas) `logo`

@@ -80,7 +80,7 @@ abstract class Mailable implements Sendable
 
     public function __construct()
     {
-        $this->subject = App::instance()->option('beebmx.kirby-courier.message.subject', 'Message from courier');
+        $this->subject = App::instance()->option('beebmx.courier.message.subject', 'Message from courier');
         $this->logo = $this->getLogo();
 
         $this->boot();
@@ -419,8 +419,8 @@ abstract class Mailable implements Sendable
 
         if (empty($this->from)) {
             $this->setAddress(
-                App::instance()->option('beebmx.kirby-courier.from.address', 'hello@example.com'),
-                App::instance()->option('beebmx.kirby-courier.from.name', 'Example'),
+                App::instance()->option('beebmx.courier.from.address', 'hello@example.com'),
+                App::instance()->option('beebmx.courier.from.name', 'Example'),
                 'from'
             );
         }
@@ -508,7 +508,7 @@ abstract class Mailable implements Sendable
 
     protected function getLogo(): ?string
     {
-        $logo = App::instance()->option('beebmx.kirby-courier.logo');
+        $logo = App::instance()->option('beebmx.courier.logo');
 
         return match (true) {
             $logo instanceof Closure => (string) $logo()?->url(),

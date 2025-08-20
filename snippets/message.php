@@ -33,7 +33,7 @@
 <?php /*-- Footer --*/ ?>
 <?php slot('footer') ?>
 <?php snippet('courier/footer', slots: true) ?>
-© <?= date('Y') ?> <?= site()->title() ?>. <?= option('beebmx.kirby-courier.message.rights', 'All rights reserved.') ?>
+© <?= date('Y') ?> <?= site()->title() ?>. <?= option('beebmx.courier.message.rights', 'All rights reserved.') ?>
 <?php endsnippet() ?>
 <?php endslot() ?>
 

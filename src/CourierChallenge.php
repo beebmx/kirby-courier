@@ -38,15 +38,15 @@ class CourierChallenge extends EmailChallenge
         );
 
         $greeting = $kirby->option(
-            'beebmx.kirby-courier.challenge.greeting',
-            I18n::template('beebmx.kirby-courier.challenge.email.greeting', null, [
+            'beebmx.courier.challenge.greeting',
+            I18n::template('beebmx.courier.challenge.email.greeting', null, [
                 'name' => $user->nameOrEmail(),
             ], $user->language())
         );
 
         $before = $kirby->option(
-            'beebmx.kirby-courier.challenge.email.login.before',
-            I18n::template('beebmx.kirby-courier.challenge.email.'.$mode.'.before', null, [
+            'beebmx.courier.challenge.email.login.before',
+            I18n::template('beebmx.courier.challenge.email.'.$mode.'.before', null, [
                 'name' => $user->nameOrEmail(),
                 'site' => $kirby->system()->title(),
                 'timeout' => $timeout,
@@ -54,14 +54,14 @@ class CourierChallenge extends EmailChallenge
         );
 
         $after = $kirby->option(
-            'beebmx.kirby-courier.challenge.email.login.after',
-            I18n::template('beebmx.kirby-courier.challenge.email.'.$mode.'.after', null, [
+            'beebmx.courier.challenge.email.login.after',
+            I18n::template('beebmx.courier.challenge.email.'.$mode.'.after', null, [
                 'name' => $user->nameOrEmail(),
             ], $user->language())
         );
 
         (new Message)
-            ->theme($kirby->option('beebmx.kirby-courier.challenge.theme', 'default'))
+            ->theme($kirby->option('beebmx.courier.challenge.theme', 'default'))
             ->from($from, $formName)
             ->to($user->email())
             ->subject($subject)

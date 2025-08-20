@@ -41,14 +41,14 @@ $color = match ($level) {
 @if (! empty($salutation))
 {{ $salutation }}
 @else
-{{ option('beebmx.kirby-courier.message.salutation', 'Regards') }},
-{{ option('beebmx.kirby-courier.message.brand_name', site()->title()->or('Courier')) }}
+{{ option('beebmx.courier.message.salutation', 'Regards') }},
+{{ option('beebmx.courier.message.brand_name', site()->title()->or('Courier')) }}
 @endif
 
 {{-- Subcopy --}}
 @isset($actionText)
 <x-slot:subcopy>
-{{ option('beebmx.kirby-courier.message.notify', 'If you\'re having trouble clicking the button, copy and paste the URL below into your web browser') }}
+{{ option('beebmx.courier.message.notify', 'If you\'re having trouble clicking the button, copy and paste the URL below into your web browser') }}
 <span class="break-all">[{{ $displayableActionUrl }}]({{ $actionUrl }})</span>
 </x-slot:subcopy>
 @endisset

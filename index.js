@@ -1,1 +1,1 @@
-(function(){"use strict";window.panel.plugin("beebmx/kirby-courier",{})})();
+(function(){"use strict";window.panel.plugin("beebmx/courier",{})})();

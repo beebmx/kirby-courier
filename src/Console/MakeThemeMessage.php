@@ -29,6 +29,6 @@ class MakeThemeMessage
 
     protected function courier(App $kirby): string
     {
-        return $kirby->option('beebmx.kirby-courier.path', 'courier');
+        return $kirby->option('beebmx.courier.path', 'courier');
     }
 }

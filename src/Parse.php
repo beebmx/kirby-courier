@@ -36,7 +36,7 @@ class Parse
 
     protected function directory(): string
     {
-        return App::instance()->option('beebmx.kirby-courier.path', 'courier');
+        return App::instance()->option('beebmx.courier.path', 'courier');
     }
 
     protected function path(): string

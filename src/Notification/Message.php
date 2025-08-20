@@ -52,7 +52,7 @@ class Message extends Mailable
 
     public function boot(): void
     {
-        $this->greeting = App::instance()->option('beebmx.kirby-courier.message.greeting', 'Hello!');
+        $this->greeting = App::instance()->option('beebmx.courier.message.greeting', 'Hello!');
     }
 
     /**

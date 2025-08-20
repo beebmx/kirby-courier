@@ -4,7 +4,7 @@ use Kirby\Cms\App;
 
 @include_once __DIR__.'/vendor/autoload.php';
 
-App::plugin('beebmx/kirby-courier', [
+App::plugin('beebmx/courier', [
     'authChallenges' => require_once __DIR__.'/extensions/authChallenges.php',
     'commands' => require_once __DIR__.'/extensions/commands.php',
     'hooks' => require_once __DIR__.'/extensions/hooks.php',

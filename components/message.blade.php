@@ -26,7 +26,7 @@
 {{-- Footer --}}
 <x-slot:footer>
 <x-courier::footer>
-© {{ date('Y') }} {{ site()->title() }}. {{ option('beebmx.kirby-courier.message.rights', 'All rights reserved.') }}
+© {{ date('Y') }} {{ site()->title() }}. {{ option('beebmx.courier.message.rights', 'All rights reserved.') }}
 </x-courier::footer>
 </x-slot:footer>
 </x-courier::layout>

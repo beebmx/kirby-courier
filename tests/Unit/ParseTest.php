@@ -36,7 +36,7 @@ describe('basic', function () {
 describe('advance', function () {
     beforeEach(function () {
         App(options: [
-            'beebmx.kirby-courier.path' => 'emails',
+            'beebmx.courier.path' => 'emails',
         ]);
     });
 

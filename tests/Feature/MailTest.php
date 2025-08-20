@@ -382,7 +382,7 @@ describe('mail', function () {
 describe('advance', function () {
     it('can update the logo with an asset', function () {
         App(options: [
-            'beebmx.kirby-courier.logo' => fn () => asset('media/plugins/beebmx/kirby-courier/logo-700.png'),
+            'beebmx.courier.logo' => fn () => asset('media/plugins/beebmx/kirby-courier/logo-700.png'),
         ]);
 
         expect(new Message)
@@ -393,7 +393,7 @@ describe('advance', function () {
 
     it('can update the logo with a string url', function () {
         App(options: [
-            'beebmx.kirby-courier.logo' => 'media/plugins/beebmx/kirby-courier/logo-500.png',
+            'beebmx.courier.logo' => 'media/plugins/beebmx/kirby-courier/logo-500.png',
         ]);
 
         expect(new Message)
