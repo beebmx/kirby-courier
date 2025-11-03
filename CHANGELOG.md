@@ -1,6 +1,15 @@
 # Changelog
 
-All notable changes to `Kirby Courier` will be documented in this file.
+All notable changes to `Courier` will be documented in this file.
+
+## 1.3.0 - 2025-11-03
+
+- Dropped support for php@8.2
+- Upgrade to Pest@4.x
+
+## 1.2.0 - 2025-08-20
+
+- Update plugin prefix to `beebmx.courier`
 
 ## 1.1.0 - 2025-07-30
 

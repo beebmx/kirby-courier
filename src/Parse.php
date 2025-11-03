@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Beebmx\KirbyCourier;
 
 use Kirby\Cms\App;

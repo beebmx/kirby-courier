@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Beebmx\KirbyCourier\Notification;
 
 use Beebmx\KirbyCourier\Action;

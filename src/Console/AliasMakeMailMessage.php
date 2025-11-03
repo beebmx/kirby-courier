@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Beebmx\KirbyCourier\Console;
 
 use Kirby\CLI\CLI;
