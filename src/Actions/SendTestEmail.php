@@ -14,18 +14,20 @@ class SendTestEmail
 {
     public function __invoke(App $kirby): array
     {
-        $success = false;
+        $email = $kirby->request()->get('email');
 
-        if (! V::email($email = $kirby->request()->get('email'))) {
+        if (! V::email($email)) {
             return [
-                'success' => $success,
+                'success' => false,
                 'message' => I18n::translate('error.validation.email', 'Please enter a valid email address'),
             ];
         }
 
+        $success = false;
+
         try {
             $success = (new Message)
-                ->to('delivered@resend.dev')
+                ->to($email)
                 ->subject(I18n::translate('beebmx.courier.panel.email.subject', 'Test Email'))
                 ->line(I18n::translate('beebmx.courier.panel.email.message', 'This is a test email.'))
                 ->action('Panel', $kirby->url($kirby->option('panel.slug')))

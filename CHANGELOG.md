@@ -2,6 +2,10 @@
 
 All notable changes to `Courier` will be documented in this file.
 
+## 1.4.1 - 2025-11-05
+
+- Fixed an issue wit a SendTestEmail action.
+
 ## 1.4.0 - 2025-11-05
 
 - Added a new panel `Area` to send test messages.
