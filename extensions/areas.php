@@ -8,6 +8,10 @@ return [
             return [];
         }
 
+        $logo = is_string($kirby->option('beebmx.courier.logo'))
+            ? $kirby->option('beebmx.courier.logo')
+            : $kirby->option('beebmx.courier.logo')()->url();
+
         return [
             'label' => $kirby->option('beebmx.courier.panel.label', 'Courier'),
             'icon' => $kirby->option('beebmx.courier.panel.icon', 'email'),
@@ -23,7 +27,7 @@ return [
                         'transport' => $kirby->option('email.transport'),
                         'plus' => $kirby->option('beebmx.email-plus.type'),
                         'courier' => array_merge(
-                            ['logo' => $kirby->option('beebmx.courier.logo')],
+                            ['logo' => $logo],
                             ['from' => $kirby->option('beebmx.courier.from')],
                         ),
                     ],

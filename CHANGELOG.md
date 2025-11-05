@@ -2,6 +2,10 @@
 
 All notable changes to `Courier` will be documented in this file.
 
+## 1.4.2 - 2025-11-05
+
+- Display a correct image path in the test email panel.
+
 ## 1.4.1 - 2025-11-05
 
 - Fixed an issue wit a SendTestEmail action.
