@@ -7,6 +7,9 @@
 /tests export-ignore
 phpunit.xml.dist export-ignore
 
+# Assets
+/resources export-ignore
+
 # Others
 .editorconfig export-ignore
 .prettierrc export-ignore

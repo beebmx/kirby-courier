@@ -22,9 +22,10 @@ With `Courier`, you can streamline the process of email design and implementatio
 - [4. Console](#console)
 - [5. Helper](#helper)
 - [6. Challenge](#challenge)
-- [7. Options](#options)
-- [8. License](#license)
-- [9. Credits](#credits)
+- [7. Testing email](#testing-email)
+- [8. Options](#options)
+- [9. License](#license)
+- [10. Credits](#credits)
 
 ## Installation
 
@@ -294,26 +295,62 @@ Then, you can specify the `methods` you want to use in your `config.php` file:
 > [!WARNING]
 > Right now only `code` and `password-reset` are supported for the `courier` challenge.
 
+
+## Testing email
+
+`Courier` comes out of the box with a panel `area` to help you test your email messages. You can change the `label` and `icon` from the `config.php` file.
+```php
+'beebmx.courier' => [
+    'panel' => [
+        'label' => 'Testing',
+        'icon' => 'wand',
+    ],
+],
+```
+
+> [!NOTE]
+> If you change the `icon`, be sure to use an available `Kirby Panel` icon from the [official list](https://getkirby.com/docs/reference/panel/icons).
+
+If you only want to enable the `testing area` for specific user roles, you can do it with the `roles` option:
+
+```yaml
+#bluprints/users/editor.yml
+
+permissions:
+  access:
+    courier: false
+```
+
+If this option is not for you or all your users, you can disable it completely with:
+
+```php
+'beebmx.courier' => [
+    'panel' => false
+],
+```
+
 ## Options
 
-| Option                                               |       Default        |           Type            | Description                                                |
-|:-----------------------------------------------------|:--------------------:|:-------------------------:|:-----------------------------------------------------------|
-| beebmx.courier.logo                                  |         null         | `Closure`,`string`,`null` | Set your own logo in every message.                        |
-| beebmx.courier.path                                  |       courier        |         `string`          | Set a path where the `templates` and `themes` are located. |
-| beebmx.courier.from.address                          |          4           |           `int`           | Set the default `form.address` for every message.          |
-| beebmx.courier.from.name                             |          2           |           `int`           | Set the default `form.name` for every message.             |
-| beebmx.courier.message.greeting                      |        Hello!        |         `string`          | Set the default `message.greeting` for every message.      |
-| beebmx.courier.message.rights                        | All rights reserved. |         `string`          | Set the default `message.rights` for every message.        |
-| beebmx.courier.message.salutation                    |       Regards        |         `string`          | Set the default `message.salutation` for every message.    |
-| beebmx.courier.message.subject                       | Message from courier |         `string`          | Set the default `message.subject` for every message.       |
-| beebmx.courier.message.notify                        |                      |         `string`          | Set the default `message.notify` for every message.        |
-| beebmx.courier.message.brand_name                    |         null         |         `?string`         | Set the default `message.brand_name` for every message.    |
-| beebmx.courier.challenge.theme                       |       default        |         `?string`         | Set the default `theme` for your challenge message.        |
-| beebmx.courier.challenge.greeting                    |         null         |         `?string`         | Set the `greeting` message for your challenge.             |
-| beebmx.courier.challenge.email.login.before          |         null         |         `?string`         | Set the text before `code` for login message.              |
-| beebmx.courier.challenge.email.login.after           |         null         |         `?string`         | Set the text after `code` for login message.               |
-| beebmx.courier.challenge.email.password-reset.before |         null         |         `?string`         | Set the text before `code` for password-reset message.     |
-| beebmx.courier.challenge.email.password-reset.after  |         null         |         `?string`         | Set the text after `code` for password-reset message.      |
+| Option                                               |           Type            |       Default        | Description                                                |
+|:-----------------------------------------------------|:-------------------------:|:--------------------:|:-----------------------------------------------------------|
+| beebmx.courier.logo                                  | `Closure`,`string`,`null` |         null         | Set your own logo in every message.                        |
+| beebmx.courier.path                                  |         `string`          |       courier        | Set a path where the `templates` and `themes` are located. |
+| beebmx.courier.from.address                          |           `int`           |          4           | Set the default `form.address` for every message.          |
+| beebmx.courier.from.name                             |           `int`           |          2           | Set the default `form.name` for every message.             |
+| beebmx.courier.message.greeting                      |         `string`          |        Hello!        | Set the default `message.greeting` for every message.      |
+| beebmx.courier.message.rights                        |         `string`          | All rights reserved. | Set the default `message.rights` for every message.        |
+| beebmx.courier.message.salutation                    |         `string`          |       Regards        | Set the default `message.salutation` for every message.    |
+| beebmx.courier.message.subject                       |         `string`          | Message from courier | Set the default `message.subject` for every message.       |
+| beebmx.courier.message.notify                        |         `string`          |                      | Set the default `message.notify` for every message.        |
+| beebmx.courier.message.brand_name                    |         `?string`         |         null         | Set the default `message.brand_name` for every message.    |
+| beebmx.courier.challenge.theme                       |         `?string`         |       default        | Set the default `theme` for your challenge message.        |
+| beebmx.courier.challenge.greeting                    |         `?string`         |         null         | Set the `greeting` message for your challenge.             |
+| beebmx.courier.challenge.email.login.before          |         `?string`         |         null         | Set the text before `code` for login message.              |
+| beebmx.courier.challenge.email.login.after           |         `?string`         |         null         | Set the text after `code` for login message.               |
+| beebmx.courier.challenge.email.password-reset.before |         `?string`         |         null         | Set the text before `code` for password-reset message.     |
+| beebmx.courier.challenge.email.password-reset.after  |         `?string`         |         null         | Set the text after `code` for password-reset message.      |
+| beebmx.courier.panel.label                           |         `string`          |       Courier        | Set a path where the `templates` and `themes` are located. |
+| beebmx.courier.panel.icon                            |         `string`          |        email         | Set a path where the `templates` and `themes` are located. |
 
 Here's an example of a full use of the options from the `config.php` file:
 
@@ -332,7 +369,7 @@ Here's an example of a full use of the options from the `config.php` file:
         'rights' => 'Copyrights.',
         'salutation' => 'Thanks',
         'subject' => 'Message from courier',
-        'notify' => 'Si tienes problemas para hacer clic en el botón, copia y pega la URL de abajo en tu navegador web.',
+        'notify' => 'If you’re having trouble clicking the button, copy and paste the URL below into your web browser.',
         'brand_name' => null,
     ],
     'challenge' => [
@@ -348,6 +385,10 @@ Here's an example of a full use of the options from the `config.php` file:
                 'after' => 'DO NOT share this code with anyone. If you did not request this password reset, you can ignore this email.',
             ],
         ],
+    ],
+    'panel' => [
+        'label' => 'Courier',
+        'icon' => 'email',
     ],
 ],
 ```

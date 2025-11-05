@@ -29,4 +29,8 @@ return [
             ],
         ],
     ],
+    'panel' => [
+        'label' => 'Courier',
+        'icon' => 'email',
+    ],
 ];

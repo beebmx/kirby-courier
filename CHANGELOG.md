@@ -2,6 +2,10 @@
 
 All notable changes to `Courier` will be documented in this file.
 
+## 1.4.0 - 2025-11-05
+
+- Added a new panel `Area` to send test messages.
+
 ## 1.3.0 - 2025-11-03
 
 - Dropped support for php@8.2
