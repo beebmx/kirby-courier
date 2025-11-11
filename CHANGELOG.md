@@ -2,6 +2,10 @@
 
 All notable changes to `Courier` will be documented in this file.
 
+## 1.4.3 - 2025-11-10
+
+- Fixed an issue with panel logo image.
+
 ## 1.4.2 - 2025-11-05
 
 - Display a correct image path in the test email panel.

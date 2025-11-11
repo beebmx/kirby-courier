@@ -8,9 +8,11 @@ return [
             return [];
         }
 
-        $logo = is_string($kirby->option('beebmx.courier.logo'))
-            ? $kirby->option('beebmx.courier.logo')
-            : $kirby->option('beebmx.courier.logo')()->url();
+        $logo = match (true) {
+            is_string($kirby->option('beebmx.courier.logo')) => $kirby->option('beebmx.courier.logo'),
+            is_callable($kirby->option('beebmx.courier.logo')) => $kirby->option('beebmx.courier.logo')()->url(),
+            default => null,
+        };
 
         return [
             'label' => $kirby->option('beebmx.courier.panel.label', 'Courier'),

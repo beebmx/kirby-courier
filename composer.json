@@ -3,7 +3,7 @@
   "description": "Courier offers a convenient and painless solution for creating emails tailored for your Kirby website.",
   "license": "MIT",
   "type": "kirby-plugin",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "homepage": "https://github.com/beebmx/kirby-courier",
   "keywords": [
     "mail",
