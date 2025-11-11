@@ -1,0 +1,1 @@
+<?= kirbytextinline($slot) ?>: <?= $url ?>

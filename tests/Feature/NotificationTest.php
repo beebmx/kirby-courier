@@ -451,6 +451,148 @@ describe('notification', function () {
     });
 });
 
+describe('plain', function () {
+    beforeEach(function () {
+        App();
+        $this->message = new Message;
+    });
+
+    it('can add a greeting', function () {
+        $this->message
+            ->greeting('Hello friend!');
+
+        expect($this->message->renderText()->toHtml())
+            ->toContain('Hello friend!')
+            ->not->toContain('html', 'body', 'table', 'tr', 'td');
+    });
+
+    it('can add intro lines', function () {
+        $this->message
+            ->line('My')
+            ->line('world');
+
+        expect($this->message->renderText()->toHtml())
+            ->toContain('My', 'world')
+            ->not->toContain('html', 'body', 'table', 'tr', 'td');
+    });
+
+    it('can add an action', function () {
+        $this->message
+            ->action('Send', 'https://example.com');
+
+        expect($this->message->renderText()->toHtml())
+            ->toContain('Send', 'https://example.com')
+            ->not->toContain('html', 'body', 'table', 'tr', 'td');
+    });
+
+    it('can add outro lines', function () {
+        $this->message
+            ->action('Send', 'https://example.com')
+            ->line('My')
+            ->line('world');
+
+        expect($this->message->renderText()->toHtml())
+            ->toContain('My', 'world')
+            ->not->toContain('html', 'body', 'table', 'tr', 'td');
+    });
+
+    it('can add lines and action', function () {
+        $this->message
+            ->line('My')
+            ->action('Send', 'https://example.com')
+            ->line('world');
+
+        expect($this->message->renderText()->toHtml())
+            ->toContain('My', 'Send', 'world')
+            ->not->toContain('html', 'body', 'table', 'tr', 'td');
+    });
+
+    it('can add a salutation', function () {
+        $this->message
+            ->salutation('Thank you!');
+
+        expect($this->message->renderText()->toHtml())
+            ->toContain('Thank you!')
+            ->not->toContain('html', 'body', 'table', 'tr', 'td');
+    });
+
+    it('display a notification if an action button was set', function () {
+        $this->message
+            ->action('Send', 'https://example.com');
+
+        expect($this->message->renderText()->toHtml())
+            ->toContain('If you\'re having trouble clicking the button')
+            ->not->toContain('html', 'body', 'table', 'tr', 'td');
+    });
+
+    it('can add conditional lines', function () {
+        $this->message
+            ->lineIf(false, 'My')
+            ->lineIf(true, 'world');
+
+        expect($this->message->renderText()->toHtml())
+            ->not->toContain('My')
+            ->toContain('world')
+            ->not->toContain('html', 'body', 'table', 'tr', 'td');
+    });
+
+    it('can multiple lines', function () {
+        $this->message
+            ->lines(['My', 'world']);
+
+        expect($this->message->renderText()->toHtml())
+            ->toContain('My', 'world')
+            ->not->toContain('html', 'body', 'table', 'tr', 'td');
+    });
+
+    it('can multiple conditional lines', function () {
+        $this->message
+            ->linesIf(false, ['My', 'world'])
+            ->linesIf(true, ['Other', 'space']);
+
+        expect($this->message->renderText()->toHtml())
+            ->not->toContain('My', 'world')
+            ->toContain('Other', 'space')
+            ->not->toContain('html', 'body', 'table', 'tr', 'td');
+    });
+
+    it('can set success level', function () {
+        $this->message
+            ->success()
+            ->action('Send', 'https://example.com');
+
+        expect($this->message->renderText()->toHtml())
+            ->not->toContain('html', 'body', 'table', 'tr', 'td');
+    });
+
+    it('can set error level', function () {
+        $this->message
+            ->error()
+            ->action('Send', 'https://example.com');
+
+        expect($this->message->renderText()->toHtml())
+            ->not->toContain('html', 'body', 'table', 'tr', 'td');
+    });
+
+    it('can set any level', function () {
+        $this->message
+            ->level('info')
+            ->action('Send', 'https://example.com');
+
+        expect($this->message->renderText()->toHtml())
+            ->not->toContain('html', 'body', 'table', 'tr', 'td');
+    });
+
+    it('can add a code block', function () {
+        $this->message
+            ->code('000001');
+
+        expect($this->message->renderText()->toHtml())
+            ->toContain('000001')
+            ->not->toContain('html', 'body', 'table', 'tr', 'td');
+    });
+});
+
 describe('advance', function () {
     it('can update the logo with an asset', function () {
         App(options: [

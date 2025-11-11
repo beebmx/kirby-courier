@@ -1,0 +1,1 @@
+{!! kirbytext($slot) !!}

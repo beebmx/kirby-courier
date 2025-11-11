@@ -52,7 +52,6 @@ function App(array $roots = [], array $options = [], string $domain = 'example.c
         'users' => [$users],
         'authChallenges' => require dirname(__DIR__).'/extensions/authChallenges.php',
         'commands' => require dirname(__DIR__).'/extensions/commands.php',
-        'snippets' => require dirname(__DIR__).'/extensions/snippets.php',
         'templates' => require dirname(__DIR__).'/extensions/templates.php',
         'translations' => require dirname(__DIR__).'/extensions/translations.php',
     ]);

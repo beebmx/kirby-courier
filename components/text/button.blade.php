@@ -1,0 +1,2 @@
+@props(['url'])
+{{ $slot }}: {{ $url }}

@@ -2,6 +2,10 @@
 
 All notable changes to `Courier` will be documented in this file.
 
+## 1.5.0 - 2025-11-11
+
+- Added support for plain text messages.
+
 ## 1.4.4 - 2025-11-10
 
 - Added more options for panel area logo image.

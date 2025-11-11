@@ -379,6 +379,35 @@ describe('mail', function () {
     });
 });
 
+describe('plain', function () {
+    beforeEach(function () {
+        App();
+        $this->message = new Message;
+    });
+
+    it('can set the a template', function () {
+        $this->message
+            ->template('simple');
+
+        expect($this->message)
+            ->renderText()
+            ->toHtml()
+            ->toContain('Simple courier template')
+            ->not->toContain('html', 'body', 'table', 'tr', 'td');
+    });
+
+    it('reset the template if null is given', function () {
+        $this->message
+            ->template();
+
+        expect($this->message)
+            ->renderText()
+            ->toHtml()
+            ->toContain('Hello Courier')
+            ->not->toContain('html', 'body', 'table', 'tr', 'td');
+    });
+});
+
 describe('advance', function () {
     it('can update the logo with an asset', function () {
         App(options: [

@@ -295,12 +295,20 @@ abstract class Mailable implements Sendable
             ->render();
     }
 
+    public function renderText(): Content
+    {
+        return (new Parse($this->template, $this->theme))
+            ->data($this->mergeData())
+            ->renderText();
+    }
+
     public function send($debug = false): Email
     {
         return App::instance()->email($this->preset, array_merge([
             'debug' => $debug,
             'body' => [
-                'html' => $this->render()->toHtml(),
+                'html' => $this->render(),
+                'text' => $this->renderText(),
             ],
         ], $this->build()));
     }

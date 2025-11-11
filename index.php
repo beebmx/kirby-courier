@@ -11,7 +11,6 @@ App::plugin('beebmx/courier', [
     'commands' => require_once __DIR__.'/extensions/commands.php',
     'hooks' => require_once __DIR__.'/extensions/hooks.php',
     'options' => require_once __DIR__.'/extensions/options.php',
-    'snippets' => require_once __DIR__.'/extensions/snippets.php',
     'templates' => require_once __DIR__.'/extensions/templates.php',
     'translations' => require_once __DIR__.'/extensions/translations.php',
 ]);
