@@ -1,6 +1,9 @@
 <?php
 
 use Kirby\Cms\App;
+use Kirby\Cms\File;
+use Kirby\Content\Field;
+use Kirby\Filesystem\Asset;
 
 return [
     'courier' => function (App $kirby): array {
@@ -10,7 +13,9 @@ return [
 
         $logo = match (true) {
             is_string($kirby->option('beebmx.courier.logo')) => $kirby->option('beebmx.courier.logo'),
-            is_callable($kirby->option('beebmx.courier.logo')) => $kirby->option('beebmx.courier.logo')()->url(),
+            is_callable($kirby->option('beebmx.courier.logo')) && $kirby->option('beebmx.courier.logo')() instanceof Asset => $kirby->option('beebmx.courier.logo')()->url(),
+            is_callable($kirby->option('beebmx.courier.logo')) && $kirby->option('beebmx.courier.logo')() instanceof File => $kirby->option('beebmx.courier.logo')()->url(),
+            is_callable($kirby->option('beebmx.courier.logo')) && $kirby->option('beebmx.courier.logo')() instanceof Field => $kirby->option('beebmx.courier.logo')()->toFile()?->url(),
             default => null,
         };
 

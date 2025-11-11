@@ -2,6 +2,10 @@
 
 All notable changes to `Courier` will be documented in this file.
 
+## 1.4.4 - 2025-11-10
+
+- Added more options for panel area logo image.
+
 ## 1.4.3 - 2025-11-10
 
 - Fixed an issue with panel logo image.
