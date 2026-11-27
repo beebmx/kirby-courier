@@ -1,10 +1,10 @@
 <p align="center"><a href="https://github.com/beebmx/kirby-courier" target="_blank" rel="noopener"><img src="https://github.com/beebmx/kirby-courier/blob/main/assets/logo.svg?raw=true" width="125" alt="Kirby Courier Logo"></a></p>
 
 <p align="center">
-<a href="https://github.com/beebmx/kirby-courier/actions"><img src="https://img.shields.io/github/actions/workflow/status/beebmx/kirby-courier/tests.yml?branch=main" alt="Build Status"></a>
-<a href="https://packagist.org/packages/beebmx/kirby-courier"><img src="https://img.shields.io/packagist/dt/beebmx/kirby-courier" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/beebmx/kirby-courier"><img src="https://img.shields.io/packagist/v/beebmx/kirby-courier" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/beebmx/kirby-courier"><img src="https://img.shields.io/packagist/l/beebmx/kirby-courier" alt="License"></a>
+<a href="https://github.com/beebmx/kirby-courier/actions/workflows/tests.yml"><img src="https://github.com/beebmx/kirby-courier/actions/workflows/tests.yml/badge.svg?branch=main" alt="Build Status"></a>
+<a href="https://packagist.org/packages/beebmx/kirby-courier"><img src="https://poser.pugx.org/beebmx/kirby-courier/downloads" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/beebmx/kirby-courier"><img src="https://poser.pugx.org/beebmx/kirby-courier/v" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/beebmx/kirby-courier"><img src="https://poser.pugx.org/beebmx/kirby-courier/license" alt="License"></a>
 </p>
 
 # Courier for Kirby
@@ -32,13 +32,13 @@ With `Courier`, you can streamline the process of email design and implementatio
 
 ## Compatibility
 
-| Version       | Kirby 3 | Kirby 4 | Kirby 5 | Kirby 6 | PHP  |
-|---------------|:-------:|:-------:|:-------:|:-------:|------|
-| 2.x           |    ❌    |    ❌    |    ❌    |    ✅    | 8.4+ |
-| 1.3 – 1.5     |    ❌    |    ❌    |    ✅    |    ❌    | 8.3+ |
-| 1.1 – 1.2     |    ❌    |    ❌    |    ✅    |    ❌    | 8.2+ |
-| 1.0.4 – 1.0.6 |    ❌    |    ✅    |    ✅    |    ❌    | 8.2+ |
-| 1.0.0 – 1.0.3 |    ❌    |    ✅    |    ❌    |    ❌    | 8.2+ |
+| Version       | Kirby 4 | Kirby 5 | Kirby 6 | PHP  |
+|---------------|:-------:|:-------:|:-------:|------|
+| 2.x           |    ❌    |    ❌    |    ✅    | 8.4+ |
+| 1.3 – 1.5     |    ❌    |    ✅    |    ❌    | 8.3+ |
+| 1.1 – 1.2     |    ❌    |    ✅    |    ❌    | 8.2+ |
+| 1.0.4 – 1.0.6 |    ✅    |    ✅    |    ❌    | 8.2+ |
+| 1.0.0 – 1.0.3 |    ✅    |    ❌    |    ❌    | 8.2+ |
 
 > [!NOTE]
 > `Courier` 2.x is built for the Vue 3 Panel of Kirby 6 and is tested on PHP 8.4, 8.5 and 8.6.

@@ -2,6 +2,11 @@
 
 All notable changes to `Courier` will be documented in this file.
 
+## 2.0.1 - 2026-11-26
+
+- Fixed the README badges, now served by GitHub and Packagist instead of shields.io.
+- Removed Kirby 3 from the compatibility table, it was never supported.
+
 ## 2.0.0 - 2026-11-26
 
 - Added support for Kirby 6. Kirby 4 and 5 sites should keep using `1.x`.
