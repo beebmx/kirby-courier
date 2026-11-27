@@ -49,7 +49,8 @@ $color = match ($level) {
 @isset($actionText)
 <x-slot:subcopy>
 {{ option('beebmx.courier.message.notify', 'If you\'re having trouble clicking the button, copy and paste the URL below into your web browser') }}
-<span class="break-all">[{{ $displayableActionUrl }}]({{ $actionUrl }})</span>
+
+<p class="break-all"><a href="{{ $actionUrl }}">{{ $displayableActionUrl }}</a></p>
 </x-slot:subcopy>
 @endisset
 </x-courier::message>

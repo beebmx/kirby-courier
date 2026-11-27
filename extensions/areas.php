@@ -1,23 +1,14 @@
 <?php
 
+use Beebmx\KirbyCourier\Logo;
 use Kirby\Cms\App;
-use Kirby\Cms\File;
-use Kirby\Content\Field;
-use Kirby\Filesystem\Asset;
+use Kirby\Toolkit\A;
 
 return [
     'courier' => function (App $kirby): array {
         if (! $kirby->user() || $kirby->option('beebmx.courier.panel') === false) {
             return [];
         }
-
-        $logo = match (true) {
-            is_string($kirby->option('beebmx.courier.logo')) => $kirby->option('beebmx.courier.logo'),
-            is_callable($kirby->option('beebmx.courier.logo')) && $kirby->option('beebmx.courier.logo')() instanceof Asset => $kirby->option('beebmx.courier.logo')()->url(),
-            is_callable($kirby->option('beebmx.courier.logo')) && $kirby->option('beebmx.courier.logo')() instanceof File => $kirby->option('beebmx.courier.logo')()->url(),
-            is_callable($kirby->option('beebmx.courier.logo')) && $kirby->option('beebmx.courier.logo')() instanceof Field => $kirby->option('beebmx.courier.logo')()->toFile()?->url(),
-            default => null,
-        };
 
         return [
             'label' => $kirby->option('beebmx.courier.panel.label', 'Courier'),
@@ -31,10 +22,14 @@ return [
                     'title' => $kirby->option('beebmx.courier.panel.label', 'Courier'),
                     'props' => [
                         'user' => $kirby->user()->toArray(),
-                        'transport' => $kirby->option('email.transport'),
+                        // never expose credentials like the SMTP password to the Panel
+                        'transport' => A::get(
+                            (array) $kirby->option('email.transport', []),
+                            ['type', 'host', 'port', 'security', 'auth', 'username']
+                        ),
                         'plus' => $kirby->option('beebmx.email-plus.type'),
                         'courier' => array_merge(
-                            ['logo' => $logo],
+                            ['logo' => Logo::url($kirby->option('beebmx.courier.logo'))],
                             ['from' => $kirby->option('beebmx.courier.from')],
                         ),
                     ],

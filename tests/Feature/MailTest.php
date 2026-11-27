@@ -406,6 +406,26 @@ describe('plain', function () {
             ->toContain('Hello Courier')
             ->not->toContain('html', 'body', 'table', 'tr', 'td');
     });
+
+    it('renders the text version after the html version', function () {
+        expect($this->message->render()->toHtml())
+            ->toContain('<table')
+            ->and($this->message->renderText()->toHtml())
+            ->toContain('Hello Courier')
+            ->not->toContain('<table')
+            ->and($this->message->render()->toHtml())
+            ->toContain('<table');
+    });
+
+    it('sends the html and text versions', function () {
+        $email = $this->message->to('john@doe.co')->send(true);
+
+        expect($email->body()->html())
+            ->toContain('<table')
+            ->and($email->body()->text())
+            ->toContain('Hello Courier')
+            ->not->toContain('<table');
+    });
 });
 
 describe('advance', function () {
@@ -418,6 +438,38 @@ describe('advance', function () {
             ->render()
             ->toHtml()
             ->toContain('logo-700.png');
+    });
+
+    it('can update the logo with a field', function () {
+        App(options: [
+            'beebmx.courier.logo' => fn () => site()->homePage()->logo(),
+        ]);
+
+        expect(new Message)
+            ->render()
+            ->toHtml()
+            ->toContain('more.jpg');
+    });
+
+    it('ignores a field logo without a file', function () {
+        App(options: [
+            'beebmx.courier.logo' => fn () => site()->title(),
+        ]);
+
+        expect(new Message)
+            ->logo->toBeNull()
+            ->render()->toHtml()->not->toContain('class="logo" alt="Site Title"');
+    });
+
+    it('escapes the logo', function () {
+        App(options: [
+            'beebmx.courier.logo' => 'https://example.com/logo.png" onerror="alert(1)',
+        ]);
+
+        expect(new Message)
+            ->render()
+            ->toHtml()
+            ->not->toMatch('/<img[^>]*\sonerror="/');
     });
 
     it('can update the logo with a string url', function () {

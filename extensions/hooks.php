@@ -1,12 +1,13 @@
 <?php
 
+use Beebmx\KirbyCourier\Blade;
 use Kirby\Cms\App;
 
 return [
     'system.loadPlugins:after' => function () {
-        if (App::instance()->option('beebmx.kirby-blade.bootstrap', false) && class_exists('Beebmx\\KirbyBlade\\Facades\\Blade')) {
-            \Beebmx\KirbyBlade\Facades\Blade::viewPath(dirname(__DIR__).'/templates');
-            \Beebmx\KirbyBlade\Facades\Blade::anonymousComponentPath(dirname(__DIR__).'/components/html', 'courier');
+        // Blade is optional: it's only set up when beebmx/kirby-blade is installed and enabled
+        if (Blade::isEnabled($kirby = App::instance())) {
+            Blade::boot($kirby);
         }
     },
 ];

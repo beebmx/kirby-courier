@@ -11,6 +11,7 @@
 # npm modules
 /node_modules
 package-lock.json
+.nvmrc
 
 # composer files
 /vendor
@@ -24,8 +25,8 @@ phpunit.xml
 # Parcel cache folder
 .cache
 
-# kirbyup temp development entry
-/index.dev.mjs
+# kirbyup development builds (index.dev.js, index.dev.css)
+/index.dev.*
 
 # Fixtures
 /tests/Fixtures/site/plugins

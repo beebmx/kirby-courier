@@ -3,11 +3,9 @@
 namespace Beebmx\KirbyCourier;
 
 use Beebmx\KirbyCourier\Contracts\Sendable;
-use Closure;
 use Kirby\Cms\App;
 use Kirby\Cms\File as KirbyFile;
 use Kirby\Email\Email;
-use Kirby\Filesystem\Asset;
 use Kirby\Filesystem\File;
 use Kirby\Toolkit\Collection;
 
@@ -516,14 +514,7 @@ abstract class Mailable implements Sendable
 
     protected function getLogo(): ?string
     {
-        $logo = App::instance()->option('beebmx.courier.logo');
-
-        return match (true) {
-            $logo instanceof Closure => (string) $logo()?->url(),
-            $logo instanceof Asset => (string) $logo?->url(),
-            is_string($logo) => $logo,
-            default => null,
-        };
+        return Logo::url(App::instance()->option('beebmx.courier.logo'));
     }
 
     /**

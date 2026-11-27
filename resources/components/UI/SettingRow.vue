@@ -1,7 +1,7 @@
 <script setup>
   defineProps({
     field: String,
-    value: String,
+    value: [String, Number, Boolean],
   })
 </script>
 

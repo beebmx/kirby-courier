@@ -9,7 +9,7 @@
 <?php slot('header') ?>
 <?php snippet('courier/header', ['url' => site()->url()], slots: true) ?>
 <?php if(is_string($logo ?? null)): ?>
-<img src="<?= $logo ?>" class="logo" alt="<?= site()->title() ?>">
+<img src="<?= esc($logo, 'attr') ?>" class="logo" alt="<?= esc(site()->title(), 'attr') ?>">
 <?php else: ?>
 <?= site()->title() ?>
 <?php endif ?>

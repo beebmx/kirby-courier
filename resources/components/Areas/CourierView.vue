@@ -8,7 +8,7 @@
     transport: Object,
     user: Object,
     plus: {
-      type: String | null,
+      type: String,
       default: null,
     },
   })

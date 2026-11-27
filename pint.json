@@ -1,3 +1,9 @@
 {
-  "exclude": ["kirby", "snippets", "templates"]
+  "exclude": [
+    "kirby",
+    "snippets",
+    "templates",
+    "tests/Fixtures/site/cache",
+    "tests/Fixtures/site/plugins"
+  ]
 }

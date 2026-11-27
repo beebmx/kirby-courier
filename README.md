@@ -16,16 +16,33 @@ With `Courier`, you can streamline the process of email design and implementatio
 
 ## Overview
 
-- [1. Installation](#installation)
-- [2. Usage](#usage)
-- [3. Snippets](#snippets)
-- [4. Console](#console)
-- [5. Helper](#helper)
-- [6. Challenge](#challenge)
-- [7. Testing email](#testing-email)
-- [8. Options](#options)
-- [9. License](#license)
-- [10. Credits](#credits)
+- [1. Compatibility](#compatibility)
+- [2. Installation](#installation)
+- [3. Usage](#usage)
+- [4. Snippets](#snippets)
+- [5. Blade](#blade)
+- [6. Console](#console)
+- [7. Helper](#helper)
+- [8. Challenge](#challenge)
+- [9. Testing email](#testing-email)
+- [10. Escaping](#escaping)
+- [11. Options](#options)
+- [12. License](#license)
+- [13. Credits](#credits)
+
+## Compatibility
+
+| Version       | Kirby 3 | Kirby 4 | Kirby 5 | Kirby 6 | PHP  |
+|---------------|:-------:|:-------:|:-------:|:-------:|------|
+| 2.x           |    ❌    |    ❌    |    ❌    |    ✅    | 8.4+ |
+| 1.3 – 1.5     |    ❌    |    ❌    |    ✅    |    ❌    | 8.3+ |
+| 1.1 – 1.2     |    ❌    |    ❌    |    ✅    |    ❌    | 8.2+ |
+| 1.0.4 – 1.0.6 |    ❌    |    ✅    |    ✅    |    ❌    | 8.2+ |
+| 1.0.0 – 1.0.3 |    ❌    |    ✅    |    ❌    |    ❌    | 8.2+ |
+
+> [!NOTE]
+> `Courier` 2.x is built for the Vue 3 Panel of Kirby 6 and is tested on PHP 8.4, 8.5 and 8.6.
+> If your site runs Kirby 4 or 5, use `Courier` 1.x.
 
 ## Installation
 
@@ -219,6 +236,61 @@ This is a subcopy
 <?php endsnippet() ?>
 ```
 
+## Blade
+
+If you prefer [Blade](https://laravel.com/docs/blade) over plain PHP templates, `Courier` works out of the box
+with [Kirby Blade](https://github.com/beebmx/kirby-blade) `^7.0`:
+
+```
+composer require beebmx/kirby-blade
+```
+
+When `Kirby Blade` is installed, `Courier` uses its Blade templates for the default `mail` and `notification` messages,
+and every snippet is available as an anonymous component with the `courier` prefix:
+
+```blade
+{{-- /site/templates/courier/marketing.blade.php --}}
+
+<x-courier::message :logo="$logo">
+# Hello {{ $name }}
+
+The body of your courier message.
+
+<x-courier::button url="https://beeb.mx" color="success">
+Button
+</x-courier::button>
+
+<x-courier::panel>
+This is a panel
+</x-courier::panel>
+
+Thanks,
+{{ site()->title() }}
+</x-courier::message>
+```
+
+The available components are `message`, `layout`, `header`, `footer`, `button`, `code`, `panel`, `subcopy` and `table`.
+They are rendered as HTML for the email body and as plain text for its text version.
+
+> [!NOTE]
+> Every template is rendered with the elements that match it: `*.blade.php` templates use the Blade components and
+> `*.php` templates use the snippets, so you can mix both kinds of templates in the same site.
+
+If `Kirby Blade` is installed but you want to keep the PHP templates as the default `Courier` templates,
+disable its bootstrap in your `config.php` file:
+
+```php
+'beebmx.kirby-blade.bootstrap' => false,
+```
+
+> [!WARNING]
+> `Kirby Blade` requires to disable the Kirby `e()` helper. Please follow the
+> [Kirby Blade installation notes](https://github.com/beebmx/kirby-blade#conflicts).
+
+> [!NOTE]
+> On PHP 8.6, `Kirby Blade` needs `illuminate/view` `^13.0`. Version 12 raises `spl_object_hash()` deprecations
+> that break the rendering, so update it with `composer require illuminate/view:^13.0` if needed.
+
 ## Console
 
 If you are a [Kirby CLI](https://github.com/getkirby/cli) user, `Courier` also has you covered.
@@ -233,6 +305,12 @@ $ kirby courier:make <template>
 
 > [!NOTE]
 > `courier:make` is an alias of `make:courier`
+
+To create a `Blade` template, add the `--blade` flag:
+
+```shell
+$ kirby make:courier <template> --blade
+```
 
 Or may be you want to customize your messages with your own `theme` with:
 
@@ -275,6 +353,8 @@ And of course, you can use it in a `template` to render it:
 ## Challenge
 
 `Courier` also provides a `challenge` message type to help you with your login and password reset flows.
+The `courier` challenge works like the Kirby `email` challenge, but the code is sent with a `Courier` notification message.
+
 First, you need to set the `challenge` in your `config.php` file:
 
 ```php
@@ -282,6 +362,10 @@ First, you need to set the `challenge` in your `config.php` file:
     'challenges' => ['courier', 'email'],
 ],
 ```
+
+> [!NOTE]
+> Kirby 6 enables the `webauthn`, `totp` and `email` challenges by default. When you set the `challenges` option,
+> add the ones you want to keep, for example: `['webauthn', 'totp', 'courier']`.
 
 Then, you can specify the `methods` you want to use in your `config.php` file:
 
@@ -293,7 +377,7 @@ Then, you can specify the `methods` you want to use in your `config.php` file:
 ```
 
 > [!WARNING]
-> Right now only `code` and `password-reset` are supported for the `courier` challenge.
+> The `courier` challenge sends the codes for the `code` and `password-reset` methods, and for the two-factor authentication.
 
 
 ## Testing email
@@ -329,6 +413,17 @@ If this option is not for you or all your users, you can disable it completely w
 ],
 ```
 
+> [!NOTE]
+> The same rules protect the API route that sends the test email: it only works for logged-in users
+> with access to the `courier` area, and it's disabled together with the `panel` option.
+
+## Escaping
+
+The values of the `Notification` message (`greeting`, `line`, `code`, `action` and `salutation`) are escaped,
+so it's safe to add user input like a contact form message. `Markdown` keeps working, but `HTML` is shown as text.
+
+If you need `HTML` in your message, create a `Mail` message with your own template.
+
 ## Options
 
 | Option                                               |           Type            |       Default        | Description                                                |
@@ -357,7 +452,7 @@ Here's an example of a full use of the options from the `config.php` file:
 ```php
 'beebmx.courier' => [
     'logo' => function() {
-        return site()->file('logo.png');
+        return site()->file('logo.png'); // or an asset, a URL or a files field: site()->logo()
     },
     'path' => 'courier',
     'from' => [

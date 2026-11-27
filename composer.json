@@ -3,7 +3,7 @@
   "description": "Courier offers a convenient and painless solution for creating emails tailored for your Kirby website.",
   "license": "MIT",
   "type": "kirby-plugin",
-  "version": "1.5.0",
+  "version": "2.0.0",
   "homepage": "https://github.com/beebmx/kirby-courier",
   "keywords": [
     "mail",
@@ -11,9 +11,9 @@
     "courier",
     "kirby",
     "kirby-plugin",
-    "kirby3",
     "kirby4",
-    "kirby5"
+    "kirby5",
+    "kirby6"
   ],
   "authors": [
     {
@@ -22,16 +22,15 @@
     }
   ],
   "require": {
-    "php": "^8.3",
+    "php": "^8.4",
     "getkirby/composer-installer": "^1.2",
-    "tijsverkoyen/css-to-inline-styles": "^2.0"
+    "tijsverkoyen/css-to-inline-styles": "^2.4"
   },
   "require-dev": {
+    "getkirby/cli": "^2.0",
+    "getkirby/cms": "^6.0",
     "laravel/pint": "^1.0",
-    "pestphp/pest": "^4.0",
-    "getkirby/cli": "^1.6",
-    "getkirby/cms": "^5.0",
-    "spatie/ray": "^1.40"
+    "pestphp/pest": "^5.0"
   },
   "config": {
     "allow-plugins": {
@@ -53,11 +52,18 @@
     }
   },
   "extra": {
+    "kirby": {
+      "compatible": "^4.0 || ^5.0 || ^6.0"
+    },
     "kirby-cms-path": false,
     "kirby-plugin-path": "tests/Fixtures/site/plugins"
   },
   "scripts": {
-    "test": "vendor/bin/pest"
+    "test-setup": [
+      "php tests/helpers.php",
+      "vendor/bin/pest"
+    ],
+    "test": "@php -d auto_prepend_file=tests/constants.php vendor/bin/pest"
   },
   "minimum-stability": "dev",
   "prefer-stable": true

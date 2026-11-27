@@ -2,6 +2,7 @@
 
 use Beebmx\KirbyCourier\Content;
 use Beebmx\KirbyCourier\Parse;
+use Kirby\Exception\NotFoundException;
 
 describe('basic', function () {
     beforeEach(function () {
@@ -31,6 +32,10 @@ describe('basic', function () {
             ->toHtml()
             ->toContain('color: black');
     });
+
+    it('throws an exception when a template does not exist', function () {
+        (new Parse('missing'))->render();
+    })->throws(NotFoundException::class, 'The courier template "courier/missing" does not exist');
 });
 
 describe('advance', function () {

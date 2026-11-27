@@ -2,7 +2,7 @@
 
 function fixKirbyHelpersForTesting(): void
 {
-    $helpers = __DIR__.'/../kirby/config/helpers.php';
+    $helpers = dirname(__DIR__).'/vendor/getkirby/cms/config/helpers.php';
 
     if (file_exists($helpers)) {
         $content = file_get_contents($helpers);

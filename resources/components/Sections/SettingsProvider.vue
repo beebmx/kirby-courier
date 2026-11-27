@@ -5,7 +5,7 @@
   const props = defineProps({
     transport: Object,
     plus: {
-      type: String | null,
+      type: String,
       default: null,
     },
   })

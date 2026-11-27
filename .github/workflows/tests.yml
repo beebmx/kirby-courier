@@ -1,32 +1,134 @@
 name: Tests
 
-on: ['push', 'pull_request']
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  test:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: true
-      matrix:
-        os: [ubuntu-latest]
-        php: [8.3, 8.4]
-
-    name: P${{ matrix.php }} - ${{ matrix.os }}
+  lint:
+    name: Code style
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          tools: composer:v2
+          coverage: none
+
+      - name: Install dependencies
+        run: composer update --prefer-stable --prefer-dist --no-interaction --no-progress
+
+      - name: Check code style
+        run: vendor/bin/pint --test
+
+  test:
+    name: PHP ${{ matrix.php }} - ${{ matrix.stability }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.4', '8.5']
+        stability: [prefer-lowest, prefer-stable]
+        include:
+          # kirby-blade needs illuminate/view 13 on PHP 8.6, which prefer-lowest doesn't install
+          - php: '8.6'
+            stability: prefer-stable
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
           tools: composer:v2
-          extensions: ctype, dom, curl, filter, hash, iconv, json, libxml, mbstring, openssl, SimpleXML, zip, pcntl, bcmath, soap, intl, gd, exif, imagick, fileinfo
+          extensions: ctype, curl, dom, fileinfo, filter, gd, hash, iconv, intl, json, libxml, mbstring, openssl, SimpleXML, zip
           coverage: none
 
       - name: Install dependencies
-        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+        run: composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-progress --optimize-autoloader
 
-      - name: Tests
-        run: ./vendor/bin/pest
+      - name: Execute tests
+        run: composer test
+
+  blade:
+    name: Blade - PHP ${{ matrix.php }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.4', '8.6']
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer:v2
+          extensions: ctype, curl, dom, fileinfo, filter, gd, hash, iconv, intl, json, libxml, mbstring, openssl, SimpleXML, zip
+          coverage: none
+
+      # kirby-blade is optional, so it's only installed for this job
+      - name: Install dependencies with kirby-blade
+        run: |
+          composer require --dev "beebmx/kirby-blade:^7.0" --no-update --no-interaction
+          composer update --prefer-stable --prefer-dist --no-interaction --no-progress --optimize-autoloader
+
+      - name: Execute tests
+        run: composer test
+
+      # the Blade tests are only registered when kirby-blade is installed,
+      # so an empty `blade` group means they didn't run
+      - name: Ensure the Blade tests ran
+        run: composer test -- --group=blade --fail-on-empty-test-suite
+
+  assets:
+    name: Panel build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Build Panel assets
+        run: npm run build

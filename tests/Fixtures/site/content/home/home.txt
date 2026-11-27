@@ -1,1 +1,5 @@
 Title: Homepage
+
+----
+
+Logo: more.jpg

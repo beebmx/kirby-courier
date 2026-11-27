@@ -18,12 +18,12 @@
 <?php slot('body') ?>
 <?php /*-- Greeting --*/ ?>
 <?php if (! empty($greeting)): ?>
-# <?= $greeting ?>
+# <?= esc($greeting) ?>
 <?php endif ?>
 
 <?php /*-- Intro Lines --*/ ?>
 <?php foreach ($introLines as $line): ?>
-<?= $line ?>
+<?= esc($line) ?>
 
 
 <?php endforeach; ?>
@@ -31,7 +31,7 @@
 <?php /*-- Code --*/ ?>
 <?php if (! empty($code)): ?>
 <?php snippet('courier/code', slots: true) ?>
-<?= $code ?>
+<?= esc((string) $code) ?>
 <?php endsnippet() ?>
 <?php endif ?>
 
@@ -43,20 +43,20 @@
 };
 ?>
 <?php snippet('courier/button', ['url' => $actionUrl, 'color' => $color], slots: true) ?>
-<?= $actionText ?>
+<?= esc($actionText) ?>
 <?php endsnippet() ?>
 <?php endif ?>
 
 <?php /*-- Outro Lines --*/ ?>
 <?php foreach ($outroLines as $line): ?>
-<?= $line ?>
+<?= esc($line) ?>
 
 
 <?php endforeach; ?>
 
 <?php /*-- Salutation --*/ ?>
 <?php if (! empty($salutation)): ?>
-<?= $salutation ?>
+<?= esc($salutation) ?>
 <?php else: ?>
 <?= option('beebmx.courier.message.salutation', 'Regards') ?>,
 <?= option('beebmx.courier.message.brand_name', site()->title()->or('Courier')) ?>
@@ -68,7 +68,7 @@
 <?php slot('subcopy') ?>
 <?= option('beebmx.courier.message.notify', 'If you\'re having trouble clicking the button, copy and paste the URL below into your web browser') ?>
 
-<span class="break-all">[<?= $displayableActionUrl ?>](<?= $actionUrl ?>)</span>
+<p class="break-all"><a href="<?= esc($actionUrl, 'attr') ?>"><?= esc($displayableActionUrl) ?></a></p>
 <?php endslot() ?>
 <?php endif ?>
 

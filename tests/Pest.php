@@ -1,8 +1,12 @@
 <?php
 
+use Beebmx\KirbyBlade\Application;
+use Beebmx\KirbyBlade\Template;
+use Beebmx\KirbyCourier\Blade;
 use Kirby\Cms\App as Kirby;
 use Kirby\Filesystem\Dir;
 use Kirby\Filesystem\F;
+use Tests\TestCase;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +19,21 @@ use Kirby\Filesystem\F;
 |
 */
 
-pest()->extend(Tests\TestCase::class)->in('Feature', 'Unit');
+pest()->extend(TestCase::class)->in('Feature', 'Unit');
+
+/*
+|--------------------------------------------------------------------------
+| Plugins
+|--------------------------------------------------------------------------
+|
+| `beebmx/kirby-blade` is installed in the fixtures plugins folder. Its
+| entry point tries to include an optional `vendor/autoload.php`, which
+| doesn't exist when it's installed with Composer. Registering it once
+| here keeps that warning out of the tests that create the first App.
+|
+*/
+
+@include_once fixtures('site/plugins/kirby-blade/index.php');
 
 /*
 |--------------------------------------------------------------------------
@@ -28,11 +46,11 @@ pest()->extend(Tests\TestCase::class)->in('Feature', 'Unit');
 |
 */
 
-function App(array $roots = [], array $options = [], string $domain = 'example.com', array $users = []): Kirby
+function App(array $roots = [], array $options = [], string $domain = 'example.com', array $users = [], ?bool $blade = false, array $request = [], array $roles = []): Kirby
 {
     Kirby::$enableWhoops = false;
 
-    return new Kirby([
+    $kirby = new Kirby([
         'roots' => array_merge([
             'index' => '/dev/null',
             'base' => $base = dirname(__DIR__),
@@ -46,15 +64,36 @@ function App(array $roots = [], array $options = [], string $domain = 'example.c
         'server' => [
             'SERVER_NAME' => $domain,
         ],
-        'options' => array_merge([
-            'beebmx.courier' => require dirname(__DIR__).'/extensions/options.php',
-        ], $options),
-        'users' => [$users],
+        'options' => array_merge(
+            ['beebmx.courier' => require dirname(__DIR__).'/extensions/options.php'],
+            $blade === null ? [] : ['beebmx.kirby-blade.bootstrap' => $blade],
+            $options,
+        ),
+        'request' => $request,
+        'roles' => $roles === [] ? null : $roles,
+        'users' => $users === [] ? [] : [$users],
         'authChallenges' => require dirname(__DIR__).'/extensions/authChallenges.php',
         'commands' => require dirname(__DIR__).'/extensions/commands.php',
+        'hooks' => require dirname(__DIR__).'/extensions/hooks.php',
         'templates' => require dirname(__DIR__).'/extensions/templates.php',
         'translations' => require dirname(__DIR__).'/extensions/translations.php',
     ]);
+
+    flushBlade();
+
+    return $kirby;
+}
+
+/**
+ * kirby-blade keeps one Blade engine per container for the whole process,
+ * so every App starts with a fresh one that uses its own roots and options
+ */
+function flushBlade(): void
+{
+    if (Blade::isAvailable()) {
+        Application::setInstance(null);
+        Template::flush();
+    }
 }
 
 function fixtures(string $path): string

@@ -1,77 +1,74 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Beebmx\KirbyCourier;
 
 use Beebmx\KirbyCourier\Notification\Message;
-use Kirby\Cms\Auth\EmailChallenge;
-use Kirby\Cms\User;
+use Kirby\Auth\Challenge\EmailChallenge;
 use Kirby\Toolkit\I18n;
-use Kirby\Toolkit\Str;
 
+/**
+ * Sends the Kirby login and password reset codes
+ * with a Courier notification message
+ */
 class CourierChallenge extends EmailChallenge
 {
-    public static function create(User $user, array $options): string
+    /**
+     * Uses the same label as the core email challenge
+     */
+    public function label(): string
     {
-        $code = Str::random(6, 'num');
+        return static::i18n('login.challenge.email.label');
+    }
 
-        $mode = match ($options['mode']) {
+    /**
+     * Sends the email with the code to the user
+     */
+    protected function send(string $code): void
+    {
+        // use the login templates for 2FA
+        $mode = match ($this->mode) {
             '2fa' => 'login',
-            default => $options['mode']
+            default => $this->mode
         };
 
-        $kirby = $user->kirby();
-        $timeout = round($options['timeout'] / 60);
+        $language = $this->user->language();
+        $name = $this->user->nameOrEmail()->value();
 
-        $from = $kirby->option(
-            'auth.challenge.email.from',
-            'noreply@'.$kirby->url('index', true)->host()
-        );
-
-        $formName = $kirby->option(
-            'auth.challenge.email.fromName',
-            $kirby->site()->title()
-        );
-
-        $subject = $kirby->option(
-            'auth.challenge.email.subject',
-            I18n::translate('login.email.'.$mode.'.subject', null, $user->language())
-        );
-
-        $greeting = $kirby->option(
+        $greeting = $this->kirby->option(
             'beebmx.courier.challenge.greeting',
             I18n::template('beebmx.courier.challenge.email.greeting', null, [
-                'name' => $user->nameOrEmail(),
-            ], $user->language())
+                'name' => $name,
+            ], $language)
         );
 
-        $before = $kirby->option(
-            'beebmx.courier.challenge.email.login.before',
+        $before = $this->kirby->option(
+            'beebmx.courier.challenge.email.'.$mode.'.before',
             I18n::template('beebmx.courier.challenge.email.'.$mode.'.before', null, [
-                'name' => $user->nameOrEmail(),
-                'site' => $kirby->system()->title(),
-                'timeout' => $timeout,
-            ], $user->language())
+                'name' => $name,
+                'site' => $this->kirby->system()->title(),
+                'timeout' => round($this->timeout / 60),
+            ], $language)
         );
 
-        $after = $kirby->option(
-            'beebmx.courier.challenge.email.login.after',
+        $after = $this->kirby->option(
+            'beebmx.courier.challenge.email.'.$mode.'.after',
             I18n::template('beebmx.courier.challenge.email.'.$mode.'.after', null, [
-                'name' => $user->nameOrEmail(),
-            ], $user->language())
+                'name' => $name,
+            ], $language)
         );
 
         (new Message)
-            ->theme($kirby->option('beebmx.courier.challenge.theme', 'default'))
-            ->from($from, $formName)
-            ->to($user->email())
-            ->subject($subject)
+            ->theme($this->kirby->option('beebmx.courier.challenge.theme', 'default'))
+            ->from($this->senderFrom(), $this->senderFromName())
+            ->to($this->user->email())
+            ->subject($this->subject($mode))
             ->greeting($greeting)
             ->line($before)
             ->code($code)
             ->line($after)
-            ->salutation($kirby->site()->title())
+            ->salutation((string) $this->kirby->site()->title())
             ->send();
-
-        return $code;
     }
 }

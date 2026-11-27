@@ -2,6 +2,25 @@
 
 All notable changes to `Courier` will be documented in this file.
 
+## 2.0.0 - 2026-11-26
+
+- Added support for Kirby 6. Kirby 4 and 5 sites should keep using `1.x`.
+- Requires PHP `^8.4` (tested on 8.4, 8.5 and 8.6) and `tijsverkoyen/css-to-inline-styles` `^2.4` (older versions trigger PHP 8.4/8.5 deprecations).
+- Migrated the Panel area to Vue 3, built with `kirbyup` 4.
+- Migrated the `courier` auth challenge to the new `Kirby\Auth\Challenge\EmailChallenge` class.
+- Added optional support for `beebmx/kirby-blade` `^7.0`, loaded only when it's installed, with Blade versions of the default templates and the anonymous `courier::` components.
+- Declared the Kirby compatibility in `composer.json` (`extra.kirby.compatible`) and added a compatibility table to the README.
+- Fixed the text version of an email containing the HTML snippets when it was rendered after the HTML version.
+- Fixed the `password-reset` challenge using the `login` texts from the `beebmx.courier.challenge.email.*` options.
+- Fixed the test email failing when the `panel.slug` option was not set, and its message ignoring the send result.
+- Removed the SMTP credentials from the Panel area props.
+- Fixed the test email API route ignoring the `courier` area permissions and the `panel` option.
+- Fixed a closure `logo` that returns a field crashing every message; the logo accepts a URL, an asset, a file or a files field.
+- Escaped the `Notification` values (greeting, lines, code, action and salutation) and the snippet attributes in the PHP templates, like the Blade templates. HTML in these values is now shown as text.
+- Fixed the subcopy link of the Blade notification double-encoding URLs with query strings.
+- Upgraded to Pest 5 and Kirby CLI 2.
+- Updated the GitHub workflow: newest actions, PHP 8.4–8.6 with lowest and stable dependencies, plus code style, Blade (with `beebmx/kirby-blade` installed only for that job) and Panel build jobs.
+
 ## 1.5.0 - 2025-11-11
 
 - Added support for plain text messages.

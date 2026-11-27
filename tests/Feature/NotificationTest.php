@@ -116,7 +116,7 @@ describe('basic', function () {
 describe('attachments', function () {
     beforeEach(function () {
         App();
-        $this->message = new \Beebmx\KirbyCourier\Mail\Message;
+        $this->message = new Beebmx\KirbyCourier\Mail\Message;
     });
 
     it('can attach a file as string', function () {
@@ -605,6 +605,27 @@ describe('advance', function () {
             ->toContain('logo-700.png');
     });
 
+    it('can update the logo with a field', function () {
+        App(options: [
+            'beebmx.courier.logo' => fn () => site()->homePage()->logo(),
+        ]);
+
+        expect(new Message)
+            ->render()
+            ->toHtml()
+            ->toContain('more.jpg');
+    });
+
+    it('ignores a field logo without a file', function () {
+        App(options: [
+            'beebmx.courier.logo' => fn () => site()->title(),
+        ]);
+
+        expect(new Message)
+            ->logo->toBeNull()
+            ->render()->toHtml()->not->toContain('class="logo" alt="Site Title"');
+    });
+
     it('can update the logo with a string url', function () {
         App(options: [
             'beebmx.courier.logo' => 'media/plugins/beebmx/kirby-courier/logo-500.png',
@@ -614,5 +635,78 @@ describe('advance', function () {
             ->render()
             ->toHtml()
             ->toContain('logo-500.png');
+    });
+});
+
+describe('escaping', function () {
+    beforeEach(function () {
+        App();
+    });
+
+    it('escapes the message values in the html version', function () {
+        $html = (new Message)
+            ->greeting('<i>Greeting</i>')
+            ->line('<img src=x onerror=alert(1)>')
+            ->code('<b>123</b>')
+            ->action('<b>Action</b>', 'https://example.com')
+            ->line('<script>alert(1)</script>')
+            ->salutation('<u>Bye</u>')
+            ->render()
+            ->toHtml();
+
+        expect($html)
+            ->not->toContain('<i>Greeting</i>', '<img src=x', '<b>123</b>', '<b>Action</b>', '<script>alert(1)</script>', '<u>Bye</u>')
+            ->toContain('&lt;i&gt;Greeting&lt;/i&gt;', '&lt;img src=x onerror=alert(1)&gt;', '&lt;script&gt;alert(1)&lt;/script&gt;');
+    });
+
+    it('keeps the markdown in the lines', function () {
+        expect((new Message)->line('A **bold** line')->render()->toHtml())
+            ->toMatch('/<strong[^>]*>bold<\/strong> line/');
+    });
+
+    it('shows the plain values in the text version', function () {
+        expect((new Message)->line('Use <b> & "quotes"')->renderText()->toHtml())
+            ->toContain('Use <b> & "quotes"')
+            ->not->toContain('&lt;', '&amp;', '&quot;');
+    });
+
+    it('escapes the action url', function () {
+        $html = (new Message)
+            ->action('Send', 'https://example.com/?a=1&b=2" onclick="alert(1)')
+            ->render()
+            ->toHtml();
+
+        expect($html)
+            ->not->toMatch('/<a[^>]*\sonclick="/')
+            ->toContain('href="https://example.com/?a=1&amp;b=2&quot;');
+    });
+
+    it('links the subcopy to the action url only once', function () {
+        $html = (new Message)
+            ->action('Send', 'https://example.com/?a=1&b=2')
+            ->render()
+            ->toHtml();
+
+        preg_match_all('/href="([^"]+)"/', $html, $links);
+
+        expect(array_count_values($links[1]))
+            ->toHaveKey('https://example.com/?a=1&amp;b=2', 2)
+            ->and($html)->not->toContain('&amp;amp;');
+    });
+
+    it('escapes the attributes of the button snippet', function () {
+        $html = (new Beebmx\KirbyCourier\Mail\Message)
+            ->template('button')
+            ->data([
+                'url' => 'https://example.com/?a=1&b=2" onclick="alert(1)',
+                'color' => 'primary" onmouseover="alert(1)',
+                'align' => 'center" onfocus="alert(1)',
+            ])
+            ->render()
+            ->toHtml();
+
+        expect($html)
+            ->not->toMatch('/\s(onclick|onmouseover|onfocus)="/')
+            ->toContain('href="https://example.com/?a=1&amp;b=2&quot;');
     });
 });

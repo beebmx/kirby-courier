@@ -4,7 +4,7 @@
 <x-slot:header>
 <x-courier::header :url="site()->url()">
 @if(is_string($logo))
-<img src="<?= $logo ?>" class="logo" alt="<?= site()->title() ?>">
+<img src="{{ $logo }}" class="logo" alt="{{ site()->title() }}">
 @else
 <?= site()->title()->or('Courier') ?>
 @endif
